@@ -1,13 +1,15 @@
-package com.devCircle.devCircle.Dto;
+package com.devCircle.devCircle.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterRequestDto {
+@Builder
+public class UserDTO {
     private String username;
     private String email;
     private String password;

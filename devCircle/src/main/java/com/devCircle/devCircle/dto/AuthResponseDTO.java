@@ -1,4 +1,4 @@
-package com.devCircle.devCircle.Dto;
+package com.devCircle.devCircle.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequestDto {
-    private String email;
-    private String password;
+public class AuthResponseDTO {
+    private String token;
 }

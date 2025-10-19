@@ -8,15 +8,22 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class DevCircleApplication {
 
+    public DevCircleApplication(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(DevCircleApplication.class, args);
     }
+
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
     CommandLineRunner init(UserRepository userRepo, PostRepository postRepo) {
@@ -25,7 +32,7 @@ public class DevCircleApplication {
                 User user = User.builder()
                         .username("alice")
                         .email("alice@email.com")
-                        .password("1234") // just for test, later use hashed
+                        .password(passwordEncoder.encode("1234")) // just for test, later use hashed
                         .role("BEGINNER")
                         .skills("Java,Spring Boot")
                         .githubUrl("https://www.flashscore.pl/")

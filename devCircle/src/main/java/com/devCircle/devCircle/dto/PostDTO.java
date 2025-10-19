@@ -1,7 +1,6 @@
-package com.devCircle.devCircle.Dto;
+package com.devCircle.devCircle.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PostDto {
+public class PostDTO {
     private Long id;
 
     @NotBlank(message = "Title is required")
@@ -31,7 +30,6 @@ public class PostDto {
     private String status;
     private LocalDateTime createdAt;
 
-    @NotNull(message = "AuthorId is required")
     private Long authorId;
     private String authorUsername;
 }

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,7 +26,7 @@ public class Post {
 
     @Column(length = 1000)
     private String description;
-    private String tags;   // e.g. "Spring Boot, Angular"
+    private List<String> tags;   // e.g. "Spring Boot, Angular"
 
     @Column(nullable = false)
     private String type;   // OFFER or REQUEST

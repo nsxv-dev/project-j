@@ -1,7 +1,7 @@
 package com.devCircle.devCircle.mapper;
 
 public interface Mapper<A, B> {
-    A mapFrom(B b);
+    A toEntity(B b);
 
-    B mapTo(A a);
+    B toDto(A a);
 }

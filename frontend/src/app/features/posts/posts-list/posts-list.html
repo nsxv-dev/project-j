@@ -1,0 +1,36 @@
+<div class="posts-container">
+  <app-posts-form (postCreated)="loadPosts()"></app-posts-form>
+  <h2>All Posts</h2>
+
+  @if (isLoading) {
+    <div class="loading">
+      <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+  }
+
+  @if (!isLoading && !errorMessage && posts.length === 0) {
+    <div class="empty">No posts found.</div>
+  }
+
+  @if (!isLoading && !errorMessage && posts.length > 0) {
+    <mat-list>
+      @for (post of posts; track post.id) {
+        <mat-list-item class="post-item" [routerLink]="['/posts', post.id]">
+          <mat-icon matListItemIcon color="primary">article</mat-icon>
+          <div matListItemTitle class="post-title">{{ post.title }}</div>
+
+          <mat-divider></mat-divider>
+            <span matListItemLine class="post-content">{{ post.description }}</span>
+                <div matListItemLine class="post-meta">
+                <span>By {{ post.authorDisplayName }}</span> •
+            <span>{{ post.createdAt | date: 'mediumDate' }}</span>
+          </div>
+        </mat-list-item>
+      }
+    </mat-list>
+  }
+</div>

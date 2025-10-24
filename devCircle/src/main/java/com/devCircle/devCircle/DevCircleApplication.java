@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootApplication
 public class DevCircleApplication {
@@ -30,7 +31,7 @@ public class DevCircleApplication {
         return args -> {
             if (userRepo.count() == 0) {
                 User user = User.builder()
-                        .username("alice")
+                        .displayName("alice")
                         .email("alice@email.com")
                         .password(passwordEncoder.encode("1234")) // just for test, later use hashed
                         .role("BEGINNER")
@@ -44,7 +45,7 @@ public class DevCircleApplication {
                 Post post = Post.builder()
                         .title("Need help with JWT Auth")
                         .description("Trying to implement JWT in Spring Boot")
-                        .tags("Spring Boot,Security,JWT")
+                        .tags(List.of("A", "B", "C"))
                         .type("REQUEST")
                         .status("OPEN")
                         .createdAt(LocalDateTime.now())

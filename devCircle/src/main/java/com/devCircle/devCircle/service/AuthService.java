@@ -22,7 +22,7 @@ public class AuthService {
 
     public AuthResponseDTO registerUser(RegisterRequestDTO request) {
         User user = User.builder()
-                .username(request.getUsername())
+                .displayName(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role("BEGINNER")
@@ -41,7 +41,7 @@ public class AuthService {
                 )
         );
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow();
+                .orElseThrow(() -> new RuntimeException("User not found."));
         String token = jwtService.generateToken(user);
 
         return new AuthResponseDTO(token);

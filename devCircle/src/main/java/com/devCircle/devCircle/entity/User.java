@@ -24,7 +24,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String username;
+    private String displayName;
     private String email;
     private String password;
 
@@ -58,5 +58,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getUsername() {
+        // return email instead of username
+        return email;
     }
 }

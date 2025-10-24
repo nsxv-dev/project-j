@@ -1,0 +1,82 @@
+<mat-card class="post-form-card">
+  <mat-card-title>Add New Post</mat-card-title>
+
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="form-content">
+
+    <!-- Title -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Enter title" />
+      @if (postForm.get('title')?.hasError('required')){
+        <mat-error>Title is required</mat-error>
+      }
+      @if (postForm.get('title')?.hasError('minlength')){
+        <mat-error>Minimum 3 characters</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Description -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="4" formControlName="description" placeholder="Write your post..."></textarea>
+      @if (postForm.get('description')?.hasError('required')){
+        <mat-error>Description is required</mat-error>
+      }
+      @if (postForm.get('description')?.hasError('minlength')){
+        <mat-error>Minimum 10 characters</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Type -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option value="">Select type...</mat-option>
+        <mat-option *ngFor="let type of postTypes" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+      @if (postForm.get('type')?.hasError('required')){
+        <mat-error>Type is required</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Tags -->
+    <div class="tags-section">
+      <mat-form-field appearance="outline" class="tag-input">
+        <mat-label>Add tag</mat-label>
+        <input
+          matInput
+          #tagInput
+          placeholder="Press Enter to add"
+          (keyup.enter)="addTag(tagInput.value)"
+        />
+        <button mat-icon-button matSuffix type="button" (click)="addTag(tagInput.value)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-form-field>
+
+    <mat-chip-listbox aria-label="Tags" class="tag-list">
+    @for (tag of tags.controls; track tag; let i = $index){
+    <mat-chip (removed)="removeTag(i)">
+        {{ tag.value }}
+        <button matChipRemove>
+        <mat-icon>close</mat-icon>
+        </button>
+    </mat-chip>
+    }
+
+    </mat-chip-listbox>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="postForm.invalid || isSubmitting"
+    >
+      {{ isSubmitting ? 'Submitting...' : 'Submit Post' }}
+    </button>
+  </form>
+  @if (message){
+    <mat-hint class="status-message">{{ message }}</mat-hint>
+  }
+</mat-card>

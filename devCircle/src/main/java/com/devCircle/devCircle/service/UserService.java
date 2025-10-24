@@ -17,23 +17,23 @@ public class UserService {
 
 
     public UserDTO create(UserDTO dto) {
-        User user = userMapper.mapFrom(dto);
+        User user = userMapper.toEntity(dto);
         user.setRole("BEGINNER");
 
-        return userMapper.mapTo(userRepository.save(user));
+        return userMapper.toDto(userRepository.save(user));
     }
 
     public List<UserDTO> getAll() {
         return userRepository.findAll()
                 .stream()
-                .map(userMapper::mapTo)
+                .map(userMapper::toDto)
                 .toList();
     }
 
     public UserDTO findByUsername(String username) {
-        User user = userRepository.findByUsername(username)
+        User user = userRepository.findByDisplayName(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return userMapper.mapTo(user);
+        return userMapper.toDto(user);
     }
 }

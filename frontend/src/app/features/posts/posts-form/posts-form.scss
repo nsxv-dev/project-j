@@ -1,0 +1,31 @@
+.post-form-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.tags-section {
+  margin: 1rem 0;
+}
+
+.tag-input {
+  width: 100%;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.status-message {
+  display: block;
+  margin-top: 1rem;
+  color: var(--mat-primary);
+}

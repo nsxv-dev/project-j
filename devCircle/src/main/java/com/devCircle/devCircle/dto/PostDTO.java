@@ -1,6 +1,7 @@
 package com.devCircle.devCircle.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,8 +24,8 @@ public class PostDTO {
     @NotBlank(message = "Description is required")
     @Size(max = 1000, message = "Description cannot exceed 1000 characters")
     private String description;
-    @NotBlank(message = "Tags are required")
-    private String tags;
+    @NotEmpty(message = "Tags are required")
+    private List<String> tags;
     @NotBlank(message = "Type is required (OFFER or REQUEST)")
     private String type;
 
@@ -31,5 +33,5 @@ public class PostDTO {
     private LocalDateTime createdAt;
 
     private Long authorId;
-    private String authorUsername;
+    private String authorDisplayName;
 }

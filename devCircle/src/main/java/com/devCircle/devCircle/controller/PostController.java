@@ -1,12 +1,10 @@
 package com.devCircle.devCircle.controller;
 
 import com.devCircle.devCircle.dto.PostDTO;
-import com.devCircle.devCircle.entity.User;
 import com.devCircle.devCircle.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,17 +21,19 @@ public class PostController {
         return ResponseEntity.ok(postService.getAll());
     }
 
+    @GetMapping("/my")
+    public ResponseEntity<List<PostDTO>> getPostsByLoggedInUser() {
+        return ResponseEntity.ok(postService.getPostsByLoggedInUser());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<PostDTO> getById(@PathVariable Long id) {
-        System.out.println(((User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal())).toString());
         return ResponseEntity.ok(postService.getById(id));
     }
 
     @PostMapping
     public ResponseEntity<PostDTO> create(@Valid @RequestBody PostDTO dto) {
-        System.out.println(((User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal())).getId());
-
-        return ResponseEntity.ok(postService.create(dto));
+        return ResponseEntity.ok(postService.createPost(dto));
     }
 
     @DeleteMapping("/{id}")

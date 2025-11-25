@@ -1,0 +1,21 @@
+<div class="comments-container">
+
+  <!-- Comments Header -->
+  <h3 class="section-title">Comments</h3>
+  <app-comments-form [postId]="postId" (commentAdded)="loadComments()"></app-comments-form>
+
+  <!-- Comment List -->
+  @for (c of comments; track c) {
+    <mat-card class="comment-card" appearance="outlined">
+      <mat-card-header>
+        <div mat-card-avatar class="avatar"></div>
+        <mat-card-title>{{ c.authorDisplayName }}</mat-card-title>
+        <mat-card-subtitle>{{ c.createdAt | date: 'medium' }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>{{ c.content }}</p>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

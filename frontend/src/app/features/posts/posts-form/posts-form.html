@@ -1,7 +1,7 @@
 <mat-card class="post-form-card">
   <mat-card-title>Add New Post</mat-card-title>
 
-  <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="form-content">
+  <form [formGroup]="postForm" #formDir="ngForm" (ngSubmit)="onSubmit()" class="form-content">
 
     <!-- Title -->
     <mat-form-field appearance="outline" class="full-width">

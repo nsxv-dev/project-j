@@ -1,0 +1,42 @@
+<!-- Add Comment Form -->
+<h4 class="section-title">Add a Comment</h4>
+
+<mat-card class="add-comment-card" appearance="outlined">
+  <mat-card-content>
+
+    <form [formGroup]="commentForm" #formDir="ngForm">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Your comment</mat-label>
+        <textarea
+          matInput
+          maxlength="255"
+          formControlName="content"
+          rows="3"
+          placeholder="Write a comment...">
+        </textarea>
+
+        @if(commentForm.get('content')?.hasError('required')){
+            <mat-error>
+            Comment cannot be empty.
+            </mat-error>
+        }
+        @if(commentForm.get('content')?.hasError('maxlength')){
+            <mat-error>
+            Comment is too long (max 255 chars).
+            </mat-error>
+        }
+        </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="submitComment()"
+        [disabled]="commentForm.invalid">
+        Add Comment
+      </button>
+
+    </form>
+
+  </mat-card-content>
+</mat-card>

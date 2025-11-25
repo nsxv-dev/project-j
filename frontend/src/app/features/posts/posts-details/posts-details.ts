@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconButton } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { PostsList } from '../posts-list/posts-list';
+import { CommentsDetails } from '../../comments/comments-details/comments-details';
 
 @Component({
   selector: 'app-posts-details',
@@ -21,6 +22,7 @@ import { PostsList } from '../posts-list/posts-list';
     MatProgressSpinnerModule,
     MatIconButton,
     MatChipsModule,
+    CommentsDetails
   ],
   templateUrl: './posts-details.html',
   styleUrl: './posts-details.scss'

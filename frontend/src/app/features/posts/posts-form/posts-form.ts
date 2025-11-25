@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
@@ -18,6 +18,8 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class PostsForm {
   @Output() postCreated = new EventEmitter<void>();
+  @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
+    
   postForm: FormGroup
   errorMessage: string = ""
   isSubmitting: boolean = false;
@@ -73,5 +75,6 @@ export class PostsForm {
         this.isSubmitting = false;
       }
     });
+    this.formGroupDirective.resetForm();
   }
 }

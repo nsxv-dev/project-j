@@ -34,6 +34,7 @@ public class User implements UserDetails {
     private String skills;     // comma-separated for now (later: separate table)
     private String githubUrl;
     private String linkedinUrl;
+    private String avatarUrl;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,3 +1,5 @@
+import { UserProfile } from "./user-profile";
+
 export interface Post {
   id: number;
   title: string;
@@ -6,6 +8,7 @@ export interface Post {
   type: string;
   status: string;
   createdAt: string;
-  authorId: number;
+  authorId: string;
   authorDisplayName: string;
+  authorAvatarUrl: string
 }

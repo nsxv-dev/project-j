@@ -3,4 +3,5 @@ export interface Comment {
   authorDisplayName: string;
   content: string;
   createdAt?: string;
+  authorAvatarUrl: string;
 }

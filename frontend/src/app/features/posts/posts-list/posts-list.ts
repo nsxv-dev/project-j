@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Post } from '../../models/post.model';
+import { Post } from '../../models/post';
 import { PostService } from '../post-service';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -19,7 +19,7 @@ import { PostsForm } from "../posts-form/posts-form";
     MatListModule,
     RouterLink,
     PostsForm
-],
+  ],
   templateUrl: './posts-list.html',
   styleUrl: './posts-list.scss'
 })
@@ -35,7 +35,7 @@ export class PostsList {
   }
 
   loadPosts(){
-    this.postService.getPostsOfLoggedInUser().subscribe({
+    this.postService.getAllPosts().subscribe({
       next: (data) =>{
         this.posts = data;
         this.isLoading = false;

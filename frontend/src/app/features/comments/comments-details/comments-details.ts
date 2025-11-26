@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommentService } from '../comment-service';
 import { ActivatedRoute } from '@angular/router';
-import { Comment } from '../../models/comment.model';
+import { Comment } from '../../models/comment';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";

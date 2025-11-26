@@ -1,36 +1,53 @@
-<div class="posts-container">
-  <app-posts-form (postCreated)="loadPosts()"></app-posts-form>
-  <h2>All Posts</h2>
+<div class="posts-layout">
+  <div class="left-column">
+    <h2>Add Post</h2>
+    <app-posts-form (postCreated)="loadPosts()"></app-posts-form>
+  </div>
 
-  @if (isLoading) {
+  <div class="right-column">
+    <h2>All Posts</h2>
+
+    @if (isLoading) {
     <div class="loading">
       <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
     </div>
-  }
-
-  @if (errorMessage) {
+    } @if (errorMessage) {
     <div class="error">{{ errorMessage }}</div>
-  }
-
-  @if (!isLoading && !errorMessage && posts.length === 0) {
+    } @if (!isLoading && !errorMessage && posts.length === 0) {
     <div class="empty">No posts found.</div>
-  }
-
-  @if (!isLoading && !errorMessage && posts.length > 0) {
+    } @if (!isLoading && !errorMessage && posts.length > 0) {
     <mat-list>
       @for (post of posts; track post.id) {
-        <mat-list-item class="post-item" [routerLink]="['/posts', post.id]">
-          <mat-icon matListItemIcon color="primary">article</mat-icon>
-          <div matListItemTitle class="post-title">{{ post.title }}</div>
+      <mat-list-item class="post-item" [routerLink]="['/posts', post.id]">
+        <!-- Avatar -->
+        <img matListItemAvatar [src]="post.authorAvatarUrl" alt="avatar" />
 
-          <mat-divider></mat-divider>
-            <span matListItemLine class="post-content">{{ post.description }}</span>
-                <div matListItemLine class="post-meta">
-                <span>By {{ post.authorDisplayName }}</span> •
-            <span>{{ post.createdAt | date: 'mediumDate' }}</span>
-          </div>
-        </mat-list-item>
+        <!-- Post Title -->
+        <div matListItemTitle>{{ post.title }}</div>
+
+        <!-- Post Description -->
+        <div matListItemLine class="post-content">{{ post.description }}</div>
+
+        <!-- Post Meta (Author and Date) -->
+        <div matListItemLine class="post-meta">
+          <span>
+            By
+            <!-- Username Link -->
+            <a
+              (click)="$event.stopPropagation()"
+              [routerLink]="['/user', post.authorId]"
+              class="author-link"
+            >
+              {{ post.authorDisplayName }}</a
+            >
+          </span>
+          •
+          <span>{{ post.createdAt | date : 'mediumDate' }}</span>
+        </div>
+      </mat-list-item>
+
       }
     </mat-list>
-  }
+    }
+  </div>
 </div>

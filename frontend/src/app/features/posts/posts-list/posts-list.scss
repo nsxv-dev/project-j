@@ -1,12 +1,28 @@
-.posts-container {
-  max-width: 700px;
+/* MAIN TWO-COLUMN LAYOUT */
+.posts-layout {
+  display: flex;
+  gap: 24px;
+  max-width: 80%;
   margin: 40px auto;
   padding: 0 16px;
-  font-family: Roboto, Arial, sans-serif;
 }
 
+/* LEFT COLUMN (FORM) */
+.left-column {
+  flex: 1;
+  max-width: 480px;
+  position: sticky;
+  top: 20px; /* optional: keeps form visible while scrolling */
+}
+
+/* RIGHT COLUMN (POSTS LIST) */
+.right-column {
+  flex: 2.5;
+}
+
+/* ORIGINAL STYLES BELOW */
 h2 {
-  text-align: center;
+  text-align: left;
   margin-bottom: 24px;
   font-weight: 500;
   color: #333;
@@ -23,10 +39,6 @@ mat-list {
 
 /* Each post item */
 .post-item {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: flex-start;
-//   padding: 16px;
   border-bottom: 1px solid #eee;
   transition: background 0.2s ease;
 }
@@ -68,14 +80,35 @@ mat-list {
   font-size: 15px;
 }
 
-/* Make icons and dividers look cleaner */
 mat-icon[matListIcon] {
   margin-right: 12px;
   color: #3f51b5;
 }
 
 mat-divider {
-//   width: 100%;
   margin-top: 8px;
   border-color: #eee;
+}
+
+/* MOBILE RESPONSIVE — stacks columns */
+@media (max-width: 900px) {
+  .posts-layout {
+    flex-direction: column;
+  }
+
+  .left-column {
+    max-width: 100%;
+    position: static;
+  }
+}
+
+.author-link {
+  color: #3f51b5;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.author-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

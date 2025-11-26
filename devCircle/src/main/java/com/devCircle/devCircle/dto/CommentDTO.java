@@ -24,4 +24,5 @@ public class CommentDTO {
 
     private Long authorId;
     private String authorDisplayName;
+    private String authorAvatarUrl;
 }

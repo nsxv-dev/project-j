@@ -23,6 +23,7 @@ public class CommentMapperImpl implements Mapper<Comment, CommentDTO> {
     public CommentDTO toDto(Comment entity) {
         CommentDTO dto = modelMapper.map(entity, CommentDTO.class);
         dto.setAuthorDisplayName(dto.getAuthorDisplayName());
+        dto.setAuthorAvatarUrl(dto.getAuthorAvatarUrl());
         return dto;
     }
 }

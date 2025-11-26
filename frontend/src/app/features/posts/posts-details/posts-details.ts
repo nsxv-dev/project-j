@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Post } from '../../models/post.model';
+import { Post } from '../../models/post';
 import { PostService } from '../post-service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { catchError, of } from 'rxjs';

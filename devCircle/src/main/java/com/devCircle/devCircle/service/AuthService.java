@@ -26,6 +26,7 @@ public class AuthService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role("BEGINNER")
+                .avatarUrl("https://cdn.pfps.gg/pfps/8705-cat-cartoon.png")
                 .build();
 
         userRepository.save(user);

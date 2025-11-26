@@ -34,4 +34,5 @@ public class PostDTO {
 
     private Long authorId;
     private String authorDisplayName;
+    private String authorAvatarUrl;
 }

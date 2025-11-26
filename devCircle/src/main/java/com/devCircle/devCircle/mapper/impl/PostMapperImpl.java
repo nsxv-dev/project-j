@@ -28,6 +28,7 @@ public class PostMapperImpl implements Mapper<Post, PostDTO> {
     public PostDTO toDto(Post entity) {
         PostDTO dto = modelMapper.map(entity, PostDTO.class);
         dto.setAuthorDisplayName(dto.getAuthorDisplayName());
+        dto.setAuthorAvatarUrl(dto.getAuthorAvatarUrl());
         return dto;
     }
 }

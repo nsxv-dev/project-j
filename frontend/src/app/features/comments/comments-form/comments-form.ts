@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
-import { Comment } from '../../models/comment.model';
+import { Comment } from '../../models/comment';
 import { CommentService } from '../comment-service';
 import { ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -38,6 +38,7 @@ export class CommentsForm {
     if (this.commentForm.invalid) return;
     const newComment: Comment = {
       authorDisplayName: '',
+      authorAvatarUrl: '',
       content: this.commentForm.value.content ?? ''
     };
 

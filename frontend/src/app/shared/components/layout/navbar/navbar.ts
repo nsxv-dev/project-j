@@ -19,6 +19,7 @@ export class Navbar {
   private loggedInLinks = [
     { label: 'Home', icon: 'home', routerLink: '/' },
     { label: 'My Posts', icon: 'article', routerLink: '/posts' },
+    { label: 'My Profile', icon: 'account_circle', routerLink: '/user/me' },
   ];
 
   // Links for guests

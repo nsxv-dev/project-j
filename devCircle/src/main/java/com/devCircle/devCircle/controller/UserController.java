@@ -1,6 +1,7 @@
 package com.devCircle.devCircle.controller;
 
 import com.devCircle.devCircle.dto.UserDTO;
+import com.devCircle.devCircle.dto.UserProfileDTO;
 import com.devCircle.devCircle.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,5 +25,15 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAll() {
         return ResponseEntity.ok(userService.getAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserProfileDTO> getUserProfile(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserProfileById(id));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserProfileDTO> getCurrentUserProfile() {
+        return ResponseEntity.ok(userService.getCurrentUserProfile());
     }
 }

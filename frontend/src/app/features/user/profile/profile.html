@@ -1,0 +1,49 @@
+<mat-card class="profile-card">
+  @if(profile) {
+
+  <div class="profile-header">
+    <div class="avatar">
+      @if(profile.avatarUrl){
+      <img [src]="profile.avatarUrl" alt="Avatar" />
+      }
+    </div>
+
+    <div class="profile-info">
+      <h2>{{ profile.displayName }}</h2>
+      <span class="role">{{ profile.role }}</span>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content class="profile-content">
+    <div class="profile-row">
+      <mat-icon>email</mat-icon>
+      <span>{{ profile.email }}</span>
+    </div>
+
+    <div class="profile-row">
+      <mat-icon>code</mat-icon>
+      <span>{{ profile.skills || '—' }}</span>
+    </div>
+
+    <div class="social-links">
+      @if(profile.githubUrl) {
+      <a [href]="profile.githubUrl" target="_blank" class="social-item github">
+        <img src="icons/github_logo.png" alt="GitHub" />
+        GitHub
+      </a>
+      } @if(profile.linkedinUrl) {
+      <a [href]="profile.linkedinUrl" target="_blank" class="social-item linkedin">
+        <img src="icons/linkedin_logo.png" alt="LinkedIn" />
+        LinkedIn
+      </a>
+      }
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" routerLink="/profile/edit">Edit Profile</button>
+  </mat-card-actions>
+  }
+</mat-card>

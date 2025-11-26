@@ -1,48 +1,48 @@
 <div class="post-detail-container">
   <!-- Loading Spinner -->
-    @if (isLoading){
-    <div class="loading">
-        <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
-    </div>
-   }
+  @if (isLoading){
+  <div class="loading">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+  </div>
+  }
 
   <!-- Error Message -->
-   @if (errorMessage){
-    <div class="error">{{ errorMessage }}</div>
-   }
+  @if (errorMessage){
+  <div class="error">{{ errorMessage }}</div>
+  }
 
-    <!-- Post Card -->
-   @if (post){
-    <mat-card class="post-card">
-        <mat-card-header>
-            <img src="avatar.png" mat-card-avatar color="primary">
-            <mat-card-title>{{ post.title }}</mat-card-title>
-            <mat-card-subtitle>
-                By {{ post.authorDisplayName }} • {{ post.createdAt | date:'medium' }}
-            </mat-card-subtitle>
-        </mat-card-header>
+  <!-- Post Card -->
+  @if (post){
+  <mat-card class="post-card">
+    <mat-card-header>
+      <img [src]="post.authorAvatarUrl" mat-card-avatar color="primary" />
+      <mat-card-title>{{ post.title }}</mat-card-title>
+      <mat-card-subtitle>
+        By {{ post.authorDisplayName }} • {{ post.createdAt | date : 'medium' }}
+      </mat-card-subtitle>
+    </mat-card-header>
 
-        <mat-card-content>
-            <p>{{ post.description }}</p>
-        </mat-card-content>
+    <mat-card-content>
+      <p>{{ post.description }}</p>
+    </mat-card-content>
 
-            <!-- Back Button -->
-        <mat-card-actions>
-            <button mat-icon-button color="primary" routerLink="/posts" aria-label="Back to posts">
-                <mat-icon>arrow_circle_left</mat-icon>
-            </button>
-            @if(post.tags.length > 0){
-                <div class="tags">
-                @for (tag of post.tags; track tag){
-                <mat-chip-listbox>
-                    <mat-chip color="primary" selected>{{ tag }}</mat-chip>
-                </mat-chip-listbox>
-                }
-                </div>
-            }
-        </mat-card-actions>
-    </mat-card>
+    <!-- Back Button -->
+    <mat-card-actions>
+      <button mat-icon-button color="primary" routerLink="/posts" aria-label="Back to posts">
+        <mat-icon>arrow_circle_left</mat-icon>
+      </button>
+      @if(post.tags.length > 0){
+      <div class="tags">
+        @for (tag of post.tags; track tag){
+        <mat-chip-listbox>
+          <mat-chip color="primary" selected>{{ tag }}</mat-chip>
+        </mat-chip-listbox>
+        }
+      </div>
+      }
+    </mat-card-actions>
+  </mat-card>
 
-    <app-comments-details [postId]="post.id"></app-comments-details>
-   }
+  <app-comments-details [postId]="post.id"></app-comments-details>
+  }
 </div>

@@ -10,7 +10,7 @@ import { AuthService } from '../../../../core/services/auth-service';
   selector: 'app-navbar',
   imports: [MatToolbarModule, MatButtonModule, RouterLink, CommonModule, MatIconModule],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.scss'
+  styleUrl: './navbar.scss',
 })
 export class Navbar {
   constructor(public authService: AuthService) {}
@@ -18,7 +18,7 @@ export class Navbar {
   // Links for logged-in users
   private loggedInLinks = [
     { label: 'Home', icon: 'home', routerLink: '/' },
-    { label: 'My Posts', icon: 'article', routerLink: '/posts' },
+    { label: 'My Posts', icon: 'article', routerLink: '/posts/my' },
     { label: 'My Profile', icon: 'account_circle', routerLink: '/user/me' },
   ];
 
@@ -30,7 +30,5 @@ export class Navbar {
   ];
 
   // Automatically pick correct links based on auth state
-  links = computed(() =>
-    this.authService.isLoggedIn() ? this.loggedInLinks : this.guestLinks
-  );
+  links = computed(() => (this.authService.isLoggedIn() ? this.loggedInLinks : this.guestLinks));
 }

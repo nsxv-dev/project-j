@@ -18,6 +18,7 @@
 /* RIGHT COLUMN (POSTS LIST) */
 .right-column {
   flex: 2.5;
+  max-width: calc(100% - 480px);
 }
 
 /* ORIGINAL STYLES BELOW */

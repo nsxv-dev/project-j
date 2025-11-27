@@ -7,11 +7,10 @@ import com.devCircle.devCircle.mapper.impl.PostMapperImpl;
 import com.devCircle.devCircle.repository.PostRepository;
 import com.devCircle.devCircle.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,22 +19,19 @@ public class PostService {
     private final PostMapperImpl postMapper;
     private final UserRepository userRepository;
 
-    public List<PostDTO> getAll() {
-        return postRepository.findAll()
-                .stream()
-                .map(postMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<PostDTO> getPosts(Pageable pageable) {
+        return postRepository.findAll(pageable)
+                .map(postMapper::toDto);
     }
 
-    public List<PostDTO> getPostsByLoggedInUser() {
+    public Page<PostDTO> getPostsByLoggedInUser(Pageable pageable) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
         User author = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found."));
 
-        return postRepository.findByAuthor(author)
-                .stream()
-                .map(postMapper::toDto)
-                .collect(Collectors.toList());
+        return postRepository.findByAuthor(author, pageable)
+                .map(postMapper::toDto);
     }
 
     public PostDTO getById(Long id) {

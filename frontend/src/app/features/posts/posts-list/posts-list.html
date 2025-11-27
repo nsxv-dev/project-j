@@ -48,6 +48,11 @@
 
       }
     </mat-list>
+    <mat-paginator
+      [length]="totalCount"
+      [pageSize]="pageSize"
+      (page)="onPageChange($event)"
+    ></mat-paginator>
     }
   </div>
 </div>

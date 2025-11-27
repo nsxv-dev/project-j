@@ -1,0 +1,51 @@
+<div class="posts-layout">
+  <h2>My Posts</h2>
+
+  @if (isLoading) {
+  <div class="loading">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+  </div>
+  } @if (errorMessage) {
+  <div class="error">{{ errorMessage }}</div>
+  } @if (!isLoading && !errorMessage && posts.length === 0) {
+  <div class="empty">No posts found.</div>
+  } @if (!isLoading && !errorMessage && posts.length > 0) {
+  <mat-list>
+    @for (post of posts; track post.id) {
+    <mat-list-item class="post-item" [routerLink]="['/posts', post.id]">
+      <!-- Avatar -->
+      <img matListItemAvatar [src]="post.authorAvatarUrl" alt="avatar" />
+
+      <!-- Post Title -->
+      <div matListItemTitle>{{ post.title }}</div>
+
+      <!-- Post Description -->
+      <div matListItemLine class="post-content">{{ post.description }}</div>
+
+      <!-- Post Meta (Author and Date) -->
+      <div matListItemLine class="post-meta">
+        <span>
+          By
+          <!-- Username Link -->
+          <a
+            (click)="$event.stopPropagation()"
+            [routerLink]="['/user', post.authorId]"
+            class="author-link"
+          >
+            {{ post.authorDisplayName }}</a
+          >
+        </span>
+        •
+        <span>{{ post.createdAt | date : 'mediumDate' }}</span>
+      </div>
+    </mat-list-item>
+
+    }
+  </mat-list>
+  <mat-paginator
+    [length]="totalCount"
+    [pageSize]="pageSize"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+  }
+</div>

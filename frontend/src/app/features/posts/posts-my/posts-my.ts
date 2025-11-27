@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
 import { Post } from '../../models/post';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { PostService } from '../post-service';
 import { CommonModule } from '@angular/common';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
-import { PostsForm } from '../posts-form/posts-form';
-import { PageEvent, MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-posts-list',
+  selector: 'app-posts-my',
   imports: [
     CommonModule,
     MatProgressSpinnerModule,
@@ -19,13 +18,12 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
     MatIconModule,
     MatListModule,
     RouterLink,
-    PostsForm,
     MatPaginator,
   ],
-  templateUrl: './posts-list.html',
-  styleUrl: './posts-list.scss',
+  templateUrl: './posts-my.html',
+  styleUrl: './posts-my.scss',
 })
-export class PostsList {
+export class PostsMy {
   posts: Post[] = [];
   isLoading: boolean = true;
   errorMessage: string = '';
@@ -40,7 +38,7 @@ export class PostsList {
   }
 
   loadPosts() {
-    this.postService.getAllPosts(this.currentPage, this.pageSize).subscribe({
+    this.postService.getPostsOfLoggedInUser(this.currentPage, this.pageSize).subscribe({
       next: (data) => {
         this.posts = data.content;
         this.totalCount = data.totalElements;

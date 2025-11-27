@@ -1,0 +1,111 @@
+/* MAIN LAYOUT */
+.posts-layout {
+  max-width: 60%;
+  margin: 40px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Page Title */
+.posts-layout h2 {
+  text-align: left;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* LIST CARD STYLE */
+mat-list {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* EACH ITEM */
+.post-item {
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+  transition: background 0.15s ease;
+}
+
+.post-item:hover {
+  background-color: #f5f5f5; /* slightly lighter than your example for smoother UX */
+  cursor: pointer;
+}
+
+/* AVATAR STYLE */
+img[matListItemAvatar] {
+  border-radius: 50%;
+}
+
+/* TITLE */
+.post-item div[matListItemTitle] {
+  font-weight: 600;
+  font-size: 18px;
+  color: #222;
+}
+
+/* CONTENT PREVIEW */
+.post-content {
+  margin-top: 6px;
+  line-height: 1.5;
+  color: #444;
+  font-size: 14px;
+}
+
+/* META INFO */
+.post-meta {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #666;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* AUTHOR LINK */
+.author-link {
+  color: #3f51b5;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.author-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* EMPTY / ERROR / LOADING */
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.error,
+.empty {
+  text-align: center;
+  color: #777;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+/* PAGINATOR SPACING */
+mat-paginator {
+  margin-top: 16px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .posts-layout {
+    max-width: 95%;
+  }
+}

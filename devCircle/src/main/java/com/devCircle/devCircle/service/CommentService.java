@@ -4,7 +4,7 @@ import com.devCircle.devCircle.dto.CommentDTO;
 import com.devCircle.devCircle.entity.Comment;
 import com.devCircle.devCircle.entity.Post;
 import com.devCircle.devCircle.entity.User;
-import com.devCircle.devCircle.mapper.impl.CommentMapperImpl;
+import com.devCircle.devCircle.mapper.Mapper;
 import com.devCircle.devCircle.repository.CommentRepository;
 import com.devCircle.devCircle.repository.PostRepository;
 import com.devCircle.devCircle.repository.UserRepository;
@@ -23,7 +23,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
-    private final CommentMapperImpl commentMapper;
+    private final Mapper<Comment, CommentDTO> commentMapper;
 
     public CommentDTO addComment(Long postId, CommentDTO dto) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();

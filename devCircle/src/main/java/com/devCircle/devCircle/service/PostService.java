@@ -3,7 +3,7 @@ package com.devCircle.devCircle.service;
 import com.devCircle.devCircle.dto.PostDTO;
 import com.devCircle.devCircle.entity.Post;
 import com.devCircle.devCircle.entity.User;
-import com.devCircle.devCircle.mapper.impl.PostMapperImpl;
+import com.devCircle.devCircle.mapper.Mapper;
 import com.devCircle.devCircle.repository.PostRepository;
 import com.devCircle.devCircle.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
-    private final PostMapperImpl postMapper;
+    private final Mapper<Post, PostDTO> postMapper;
     private final UserRepository userRepository;
 
     public Page<PostDTO> getPosts(Pageable pageable) {

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +16,7 @@ public class UserProfileDTO {
     private String avatarUrl;
     private String email;
     private String role;
-    private String skills;
     private String githubUrl;
     private String linkedinUrl;
+    private List<SkillDTO> skills;
 }

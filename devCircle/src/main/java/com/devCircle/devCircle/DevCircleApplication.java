@@ -34,7 +34,7 @@ public class DevCircleApplication {
                         .email("alice@email.com")
                         .password(passwordEncoder.encode("1234")) // just for test, later use hashed
                         .role("BEGINNER")
-                        .skills("Java,Spring Boot")
+                        //.skills("Java,Spring Boot")
                         .githubUrl("https://www.flashscore.pl/")
                         .linkedinUrl("https://www.reddit.com/")
                         .build();

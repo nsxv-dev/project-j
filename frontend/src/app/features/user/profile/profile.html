@@ -24,7 +24,13 @@
 
     <div class="profile-row">
       <mat-icon>code</mat-icon>
-      <span>{{ profile.skills || '—' }}</span>
+      <span class="skills">
+        @for( skill of profile.skills; track skill.id){
+        <span class="skill">
+          {{ skill.name }}
+        </span>
+        }
+      </span>
     </div>
 
     <div class="social-links">

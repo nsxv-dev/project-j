@@ -11,7 +11,7 @@
       <mat-card-title>
         <a [routerLink]="['/user', c.authorId]" class="author-link"> {{ c.authorDisplayName }}</a>
       </mat-card-title>
-      <mat-card-subtitle>{{ c.createdAt | date : 'medium' }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ c.createdAt | date : 'short' }}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>

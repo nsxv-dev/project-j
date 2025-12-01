@@ -25,7 +25,7 @@ public class PostDTO {
     @Size(max = 1000, message = "Description cannot exceed 1000 characters")
     private String description;
     @NotEmpty(message = "Tags are required")
-    private List<String> tags;
+    private List<TagDTO> tags;
     @NotBlank(message = "Type is required (OFFER or REQUEST)")
     private String type;
 

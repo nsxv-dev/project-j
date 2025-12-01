@@ -1,7 +1,6 @@
 package com.devCircle.devCircle.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,21 +27,27 @@ public class Post {
 
     @Column(length = 1000)
     private String description;
-    private List<String> tags;   // e.g. "Spring Boot, Angular"
 
     @Column(nullable = false)
     private String type;   // OFFER or REQUEST
     private String status; // OPEN or CLOSED
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})  // Ignorowanie lazy loading
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})  // Ignorowanie lazy loading
     @JoinColumn(name = "user_id")
     private User author;
 
     private LocalDateTime createdAt;
-    
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "post_tags",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tags = new ArrayList<>();
 }

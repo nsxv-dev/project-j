@@ -45,29 +45,15 @@
 
     <!-- Tags -->
     <div class="tags-section">
-      <mat-form-field appearance="outline" class="tag-input">
-        <mat-label>Add tag</mat-label>
-        <input
-          matInput
-          #tagInput
-          placeholder="Press Enter to add"
-          (keyup.enter)="addTag(tagInput.value)"
-        />
-        <button mat-icon-button matSuffix type="button" (click)="addTag(tagInput.value)">
-          <mat-icon>add</mat-icon>
-        </button>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tags</mat-label>
+        <mat-select formControlName="tags" multiple>
+          <mat-option *ngFor="let tag of tagsList" [value]="tag.id">{{ tag.name }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="postForm.get('tags')?.hasError('required')"
+          >At least one tag is required</mat-error
+        >
       </mat-form-field>
-
-      <mat-chip-listbox aria-label="Tags" class="tag-list">
-        @for (tag of tags.controls; track tag; let i = $index){
-        <mat-chip (removed)="removeTag(i)">
-          {{ tag.value }}
-          <button matChipRemove>
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-chip>
-        }
-      </mat-chip-listbox>
     </div>
 
     <button

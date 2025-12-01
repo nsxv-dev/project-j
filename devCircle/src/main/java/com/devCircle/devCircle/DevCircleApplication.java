@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @SpringBootApplication
 public class DevCircleApplication {
@@ -45,7 +44,7 @@ public class DevCircleApplication {
                 Post post = Post.builder()
                         .title("Need help with JWT Auth")
                         .description("Trying to implement JWT in Spring Boot")
-                        .tags(List.of("A", "B", "C"))
+                        //.tags(List.of("A", "B", "C"))
                         .type("REQUEST")
                         .status("OPEN")
                         .createdAt(LocalDateTime.now())

@@ -4,6 +4,7 @@ import { Post } from '../models/post';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { PageResponse } from '../models/page-response';
+import { Tag } from '../models/tag';
 
 @Injectable({
   providedIn: 'root',

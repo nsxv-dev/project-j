@@ -22,21 +22,22 @@ import { CommentsDetails } from '../../comments/comments-details/comments-detail
     MatProgressSpinnerModule,
     MatIconButton,
     MatChipsModule,
-    CommentsDetails
+    CommentsDetails,
   ],
   templateUrl: './posts-details.html',
-  styleUrl: './posts-details.scss'
+  styleUrl: './posts-details.scss',
 })
 export class PostsDetails {
   post: Post | null = null;
   isLoading: boolean = true;
-  errorMessage: string = "";
+  errorMessage: string = '';
 
-    constructor(private route: ActivatedRoute, private postService: PostService) {}
-    ngOnInit(): void {
+  constructor(private route: ActivatedRoute, private postService: PostService) {}
+  ngOnInit(): void {
     const postId = this.route.snapshot.paramMap.get('id');
     if (postId) {
-      this.postService.getPostById(+postId)
+      this.postService
+        .getPostById(+postId)
         .pipe(
           catchError(() => {
             this.errorMessage = 'Post not found.';

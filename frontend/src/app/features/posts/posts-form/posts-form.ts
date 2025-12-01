@@ -17,6 +17,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { Tag } from '../../models/tag';
+import { TagService } from '../tag-service';
 
 @Component({
   selector: 'app-posts-form',
@@ -43,9 +45,21 @@ export class PostsForm {
   isSubmitting: boolean = false;
   message: string = '';
   postTypes = ['OFFER', 'REQUEST'];
+  tagsList: Tag[] = []; // All existing tags fetched from backend
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService, private tagService: TagService) {
     this.postForm = this.initForm();
+  }
+
+  ngOnInit() {
+    this.loadTags();
+  }
+
+  loadTags() {
+    this.tagService.getAllTags().subscribe({
+      next: (tags) => (this.tagsList = tags),
+      error: (err) => console.error('Failed to load tags', err),
+    });
   }
 
   private initForm(): FormGroup {
@@ -61,7 +75,7 @@ export class PostsForm {
         Validators.maxLength(1000),
       ]),
       type: new FormControl('', Validators.required),
-      tags: new FormArray([], Validators.required),
+      tags: new FormControl([], Validators.required),
     });
   }
   // Getter for tags FormArray
@@ -85,23 +99,31 @@ export class PostsForm {
 
   onSubmit() {
     if (this.postForm.invalid) return;
-    const postData = this.postForm.value;
-    this.isSubmitting = true;
 
+    // Get raw form value
+    const formValue = this.postForm.value;
+
+    // Map array of IDs to array of TagDTO objects
+    const postData = {
+      ...formValue,
+      tags: formValue.tags.map((id: number) => ({ id })), // <-- this is key
+    };
+
+    this.isSubmitting = true;
     this.postService.createPost(postData).subscribe({
       next: () => {
         this.postForm.reset();
-        this.tags.clear();
         this.isSubmitting = false;
         this.message = '✅ Post created successfully!';
         this.postCreated.emit();
       },
       error: (err) => {
         console.error(err);
-        this.message = this.message = '❌ Failed to create post.';
+        this.message = '❌ Failed to create post.';
         this.isSubmitting = false;
       },
     });
+
     this.formGroupDirective.resetForm();
   }
 }

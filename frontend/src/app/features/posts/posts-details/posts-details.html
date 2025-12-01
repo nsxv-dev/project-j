@@ -35,7 +35,7 @@
       <div class="tags">
         @for (tag of post.tags; track tag){
         <mat-chip-listbox>
-          <mat-chip color="primary" selected>{{ tag }}</mat-chip>
+          <mat-chip color="primary" selected>{{ tag.name }}</mat-chip>
         </mat-chip-listbox>
         }
       </div>

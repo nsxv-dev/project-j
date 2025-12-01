@@ -8,7 +8,9 @@
   <mat-card class="comment-card" appearance="outlined">
     <mat-card-header>
       <img [src]="c.authorAvatarUrl" mat-card-avatar color="primary" />
-      <mat-card-title>{{ c.authorDisplayName }}</mat-card-title>
+      <mat-card-title>
+        <a [routerLink]="['/user', c.authorId]" class="author-link"> {{ c.authorDisplayName }}</a>
+      </mat-card-title>
       <mat-card-subtitle>{{ c.createdAt | date : 'medium' }}</mat-card-subtitle>
     </mat-card-header>
 

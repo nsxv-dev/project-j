@@ -1,7 +1,15 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatCardModule } from "@angular/material/card";
-import { MatInputModule } from "@angular/material/input";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 import { Comment } from '../../models/comment';
 import { CommentService } from '../comment-service';
 import { ActivatedRoute } from '@angular/router';
@@ -9,25 +17,19 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-comments-form',
-  imports: [MatCardModule, MatInputModule,FormsModule, MatButtonModule, ReactiveFormsModule],
+  imports: [MatCardModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule],
   templateUrl: './comments-form.html',
-  styleUrl: './comments-form.scss'
+  styleUrl: './comments-form.scss',
 })
 export class CommentsForm {
-    constructor(
-    private commentService: CommentService,
-    private route: ActivatedRoute,
-  ) {}
-  
+  constructor(private commentService: CommentService, private route: ActivatedRoute) {}
+
   @Input() postId!: number;
   @Output() commentAdded = new EventEmitter<void>(); // Emit event to parent when comment is added
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
-  commentForm =  new FormGroup({
-    content: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(255)
-    ])
+  commentForm = new FormGroup({
+    content: new FormControl('', [Validators.required, Validators.maxLength(255)]),
   });
 
   ngOnInit() {
@@ -39,15 +41,14 @@ export class CommentsForm {
     const newComment: Comment = {
       authorDisplayName: '',
       authorAvatarUrl: '',
-      content: this.commentForm.value.content ?? ''
+      authorId: '',
+      content: this.commentForm.value.content ?? '',
     };
 
     this.commentService.addComment(this.postId, newComment).subscribe(() => {
-
-    this.commentForm.reset();
-    this.formGroupDirective.resetForm();  // <-- this resets value + validation + touched/pristine
-    this.commentAdded.emit(); // Notify the parent component that a new comment is added
-
+      this.commentForm.reset();
+      this.formGroupDirective.resetForm(); // <-- this resets value + validation + touched/pristine
+      this.commentAdded.emit(); // Notify the parent component that a new comment is added
     });
   }
 }

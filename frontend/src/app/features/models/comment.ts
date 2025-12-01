@@ -1,7 +1,8 @@
 export interface Comment {
   id?: number;
-  authorDisplayName: string;
   content: string;
   createdAt?: string;
+  authorId: string;
+  authorDisplayName: string;
   authorAvatarUrl: string;
 }

@@ -22,6 +22,7 @@ public class CommentMapperImpl implements Mapper<Comment, CommentDTO> {
     @Override
     public CommentDTO toDto(Comment entity) {
         CommentDTO dto = modelMapper.map(entity, CommentDTO.class);
+        dto.setAuthorId(entity.getAuthor().getId());
         dto.setAuthorDisplayName(dto.getAuthorDisplayName());
         dto.setAuthorAvatarUrl(dto.getAuthorAvatarUrl());
         return dto;

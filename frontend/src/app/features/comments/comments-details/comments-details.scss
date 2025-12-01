@@ -25,3 +25,15 @@
   background-color: #3f51b5;
   border-radius: 50%;
 }
+
+.author-link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #0d47a1;
+    text-decoration: underline;
+  }
+}

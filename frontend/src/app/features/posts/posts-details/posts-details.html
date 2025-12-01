@@ -18,7 +18,15 @@
       <img [src]="post.authorAvatarUrl" mat-card-avatar color="primary" />
       <mat-card-title>{{ post.title }}</mat-card-title>
       <mat-card-subtitle>
-        By {{ post.authorDisplayName }} • {{ post.createdAt | date : 'medium' }}
+        By
+        <a
+          (click)="$event.stopPropagation()"
+          [routerLink]="['/user', post.authorId]"
+          class="author-link"
+        >
+          {{ post.authorDisplayName }}</a
+        >
+        • {{ post.createdAt | date : 'medium' }}
       </mat-card-subtitle>
     </mat-card-header>
 

@@ -1,58 +1,69 @@
 <div class="posts-layout">
+  <!-- LEFT COLUMN: Form -->
   <div class="left-column">
     <h2>Add Post</h2>
     <app-posts-form (postCreated)="loadPosts()"></app-posts-form>
   </div>
 
+  <!-- RIGHT COLUMN: Posts List -->
   <div class="right-column">
     <h2>All Posts</h2>
 
-    @if (isLoading) {
-    <div class="loading">
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="loading">
       <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
     </div>
-    } @if (errorMessage) {
-    <div class="error">{{ errorMessage }}</div>
-    } @if (!isLoading && !errorMessage && posts.length === 0) {
-    <div class="empty">No posts found.</div>
-    } @if (!isLoading && !errorMessage && posts.length > 0) {
-    <mat-list>
-      @for (post of posts; track post.id) {
-      <mat-list-item class="post-item" [routerLink]="['/posts', post.id]">
+
+    <!-- Error -->
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+    <!-- Empty -->
+    <div *ngIf="!isLoading && !errorMessage && posts.length === 0" class="empty">
+      No posts found.
+    </div>
+
+    <!-- Posts -->
+    <div *ngIf="!isLoading && !errorMessage && posts.length > 0" class="posts-list">
+      <div class="post-item" *ngFor="let post of posts" [routerLink]="['/posts', post.id]">
         <!-- Avatar -->
-        <img matListItemAvatar [src]="post.authorAvatarUrl" alt="avatar" />
+        <img class="post-avatar" [src]="post.authorAvatarUrl" alt="avatar" />
 
-        <!-- Post Title -->
-        <div matListItemTitle>{{ post.title }}</div>
+        <!-- Text content -->
+        <div class="post-text">
+          <div class="post-title">{{ post.title }}</div>
+          <div class="post-content">{{ post.description }}</div>
 
-        <!-- Post Description -->
-        <div matListItemLine class="post-content">{{ post.description }}</div>
+          <div class="post-info">
+            <span class="post-status" [ngClass]="post.status.toLowerCase()">{{ post.status }}</span>
+            <span class="post-type">{{ post.type }}</span>
+            <span class="post-tags">
+              <span class="tag" *ngFor="let tag of post.tags">{{ tag.name }}</span>
+            </span>
+          </div>
 
-        <!-- Post Meta (Author and Date) -->
-        <div matListItemLine class="post-meta">
-          <span>
-            By
-            <!-- Username Link -->
-            <a
-              (click)="$event.stopPropagation()"
-              [routerLink]="['/user', post.authorId]"
-              class="author-link"
-            >
-              {{ post.authorDisplayName }}</a
-            >
-          </span>
-          •
-          <span>{{ post.createdAt | date : 'mediumDate' }}</span>
+          <div class="post-meta">
+            <span>
+              By
+              <a
+                (click)="$event.stopPropagation()"
+                [routerLink]="['/user', post.authorId]"
+                class="author-link"
+              >
+                {{ post.authorDisplayName }}
+              </a>
+            </span>
+            •
+            <span>{{ post.createdAt | date : 'mediumDate' }}</span>
+          </div>
         </div>
-      </mat-list-item>
+      </div>
+    </div>
 
-      }
-    </mat-list>
+    <!-- Paginator -->
     <mat-paginator
       [length]="totalCount"
       [pageSize]="pageSize"
       (page)="onPageChange($event)"
     ></mat-paginator>
-    }
   </div>
 </div>

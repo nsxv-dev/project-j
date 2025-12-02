@@ -1,115 +1,178 @@
-/* MAIN TWO-COLUMN LAYOUT */
+/* POSTS LAYOUT */
 .posts-layout {
   display: flex;
   gap: 24px;
-  max-width: 80%;
-  margin: 40px auto;
-  padding: 0 16px;
+  padding: 24px;
+  flex-wrap: wrap;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+  width: 80%;
+  margin: 0 auto;
 }
 
-/* LEFT COLUMN (FORM) */
+/* LEFT COLUMN (Form) */
 .left-column {
-  flex: 1;
-  max-width: 480px;
-  position: sticky;
-  top: 20px; /* optional: keeps form visible while scrolling */
+  flex: 1 1 300px;
+  max-width: 400px;
 }
 
-/* RIGHT COLUMN (POSTS LIST) */
-.right-column {
-  flex: 2.5;
-  max-width: calc(100% - 480px);
-}
-
-/* ORIGINAL STYLES BELOW */
-h2 {
-  text-align: left;
-  margin-bottom: 24px;
-  font-weight: 500;
+.left-column h2 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
   color: #333;
 }
 
-mat-list {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+/* RIGHT COLUMN (Posts) */
+.right-column {
+  flex: 2 1 500px;
+  min-width: 300px;
 }
 
-/* Each post item */
+.right-column h2 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+/* Loading / Error / Empty */
+.loading, .error, .empty {
+  padding: 16px;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+.loading {
+  background-color: #fff3e0;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.empty {
+  background-color: #e0e0e0;
+  color: #555;
+}
+
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* POST ITEM */
 .post-item {
-  border-bottom: 1px solid #eee;
-  transition: background 0.2s ease;
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .post-item:hover {
-  background-color: #e0e0e0;
+  background-color: #f5f5f5;
 }
 
+/* Avatar */
+.post-avatar {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Text content */
+.post-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* take all remaining space */
+  min-width: 0; /* important to allow text wrap in flex */
+  overflow-wrap: break-word;
+}
+
+/* Title */
 .post-title {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
   color: #222;
 }
 
-.post-meta {
-  font-size: 13px;
-  color: #666;
-  margin-top: 4px;
-}
-
+/* Description */
 .post-content {
-  margin-top: 8px;
-  color: #444;
-  line-height: 1.5;
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  word-break: break-word;
 }
 
-/* Spinner + Error + Empty states */
-.loading {
+/* Info: status/type/tags */
+.post-info {
   display: flex;
-  justify-content: center;
-  margin-top: 40px;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
 }
 
-.error,
-.empty {
-  text-align: center;
-  color: #777;
-  margin-top: 20px;
-  font-size: 15px;
+/* Status */
+.post-status {
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: capitalize;
 }
 
-mat-icon[matListIcon] {
-  margin-right: 12px;
-  color: #3f51b5;
+.post-status.open {
+  background-color: #e8f5e9;
+  color: #388e3c;
 }
 
-mat-divider {
-  margin-top: 8px;
-  border-color: #eee;
+.post-status.closed {
+  background-color: #ffebee;
+  color: #d32f2f;
 }
 
-/* MOBILE RESPONSIVE — stacks columns */
-@media (max-width: 900px) {
-  .posts-layout {
-    flex-direction: column;
-  }
+/* Type */
+.post-type {
+  font-weight: 500;
+  color: #1976d2;
+}
 
-  .left-column {
-    max-width: 100%;
-    position: static;
-  }
+/* Tags inside post-info */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px; /* small gap between tags */
+}
+
+.post-tags .tag {
+  background-color: #e0e0e0;
+  color: #555;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+
+/* Meta */
+.post-meta {
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .author-link {
-  color: #3f51b5;
-  font-weight: 500;
   text-decoration: none;
+  color: #1976d2;
 }
 
 .author-link:hover {
   text-decoration: underline;
-  cursor: pointer;
 }

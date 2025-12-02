@@ -12,6 +12,13 @@
       <h2>{{ profile.displayName }}</h2>
       <span class="role">{{ profile.role }}</span>
     </div>
+
+    <!-- Edit button on the right -->
+    <div class="header-actions">
+      <button mat-raised-button color="primary" [routerLink]="['/user/me/edit']">
+        Edit Profile
+      </button>
+    </div>
   </div>
 
   <mat-divider></mat-divider>
@@ -43,7 +50,7 @@
 
     <!-- Social Links -->
     @if(profile.githubUrl || profile.linkedinUrl){
-    <div class="section">
+    <div class="social-section">
       <h3 class="section-title">Social Links</h3>
       <div class="social-links">
         @if(profile.githubUrl) {
@@ -61,10 +68,6 @@
     </div>
     }
   </mat-card-content>
-
-  <mat-card-actions>
-    <button mat-raised-button color="primary" [routerLink]="['/user/me/edit']">Edit Profile</button>
-  </mat-card-actions>
 
   }
 </mat-card>

@@ -1,31 +1,85 @@
+/* POST FORM CARD */
 .post-form-card {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 1.5rem;
-}
-
-.full-width {
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-.tags-section {
-  margin: 1rem 0;
-}
-
-.tag-input {
-  width: 100%;
-}
-
-.tag-list {
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  flex-direction: column;
+  gap: 16px;
 }
 
+/* Card title */
+.post-form-card mat-card-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+/* Form content */
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Full-width form fields */
+.form-content .full-width {
+  width: 100%;
+}
+
+/* Textarea minor adjustment */
+.form-content textarea.mat-input-element {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Tags section spacing */
+.tags-section {
+  margin-bottom: 8px;
+}
+
+/* Submit button */
+.form-content button[type="submit"] {
+  align-self: flex-start;
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Status message / hints */
 .status-message {
   display: block;
-  margin-top: 1rem;
-  color: var(--mat-primary);
+  font-size: 0.875rem;
+  color: #388e3c; /* green for success */
+  margin-top: 8px;
+}
+
+/* ERROR MESSAGE (mat-error) */
+mat-error {
+  font-size: 0.8rem;
+  color: #d32f2f;
+  margin-top: 2px;
+  display: block;
+}
+
+/* MAT-FORM-FIELD adjustments */
+.mat-form-field {
+  width: 100%;
+}
+
+/* OPTIONAL: Responsive adjustment */
+@media (max-width: 768px) {
+  .post-form-card {
+    padding: 12px;
+  }
+
+  .post-form-card mat-card-title {
+    font-size: 1.2rem;
+  }
+
+  .form-content button[type="submit"] {
+    width: 100%;
+  }
 }

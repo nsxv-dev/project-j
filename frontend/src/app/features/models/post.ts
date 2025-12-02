@@ -1,5 +1,4 @@
 import { Tag } from './tag';
-import { UserProfile } from './user-profile';
 
 export interface Post {
   id: number;

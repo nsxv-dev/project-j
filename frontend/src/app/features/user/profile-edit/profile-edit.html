@@ -1,0 +1,73 @@
+<mat-card class="profile-edit-card">
+  @if(!isLoading) {
+
+  <h2>Edit Profile</h2>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <!-- Display Name -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Display Name</mat-label>
+      <input matInput formControlName="displayName" />
+    </mat-form-field>
+
+    <!-- Role Dropdown -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role">
+        @for(role of roles; track role) {
+        <mat-option [value]="role">
+          {{ role | titlecase }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Avatar Preview -->
+    @if(form.value.avatarUrl) {
+    <div class="avatar-preview">
+      <img [src]="form.value.avatarUrl" alt="Avatar Preview" />
+    </div>
+    }
+
+    <!-- Avatar URL -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Avatar URL</mat-label>
+      <input matInput formControlName="avatarUrl" />
+    </mat-form-field>
+
+    <!-- GitHub URL -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>GitHub URL</mat-label>
+      <input matInput formControlName="githubUrl" />
+    </mat-form-field>
+
+    <!-- LinkedIn URL -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>LinkedIn URL</mat-label>
+      <input matInput formControlName="linkedinUrl" />
+    </mat-form-field>
+
+    <!-- Skills Multi-Select -->
+    @if(availableSkills.length > 0) {
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Skills</mat-label>
+      <mat-select formControlName="skillIds" multiple>
+        @for(skill of availableSkills; track skill.id) {
+        <mat-option [value]="skill.id">
+          {{ skill.name }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    }
+
+    <!-- Save Button -->
+    <button mat-raised-button color="primary" type="submit">Save Changes</button>
+  </form>
+
+  } @else {
+  <div class="loading-spinner">
+    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+  </div>
+  }
+</mat-card>

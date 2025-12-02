@@ -2,6 +2,7 @@ package com.devCircle.devCircle.controller;
 
 import com.devCircle.devCircle.dto.UserDTO;
 import com.devCircle.devCircle.dto.UserProfileDTO;
+import com.devCircle.devCircle.dto.UserProfileUpdateDTO;
 import com.devCircle.devCircle.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +36,12 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity<UserProfileDTO> getCurrentUserProfile() {
         return ResponseEntity.ok(userService.getCurrentUserProfile());
+    }
+
+    @PatchMapping("/me")
+    public ResponseEntity<UserProfileDTO> updateCurrentUserProfile(
+            @RequestBody UserProfileUpdateDTO updateDto
+    ) {
+        return ResponseEntity.ok(userService.updateCurrentUserProfile(updateDto));
     }
 }

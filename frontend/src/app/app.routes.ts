@@ -7,6 +7,7 @@ import { Register } from './core/auth/register/register';
 import { PostsForm } from './features/posts/posts-form/posts-form';
 import { Profile } from './features/user/profile/profile';
 import { PostsMy } from './features/posts/posts-my/posts-my';
+import { ProfileEdit } from './features/user/profile-edit/profile-edit';
 
 export const routes: Routes = [
   { path: 'posts', component: PostsList, canActivate: [authGuard] },
@@ -15,7 +16,9 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'add-post', component: PostsForm },
-  { path: 'user/:id', component: Profile },
   { path: 'user/me', component: Profile },
+  { path: 'user/me/edit', component: ProfileEdit },
+  { path: 'user/:id', component: Profile },
+
   { path: '', component: PostsList },
 ];

@@ -3,15 +3,13 @@ package com.devCircle.devCircle.mapper.impl;
 import com.devCircle.devCircle.dto.UserDTO;
 import com.devCircle.devCircle.entity.User;
 import com.devCircle.devCircle.mapper.Mapper;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class UserMapperImpl implements Mapper<User, UserDTO> {
-    public UserMapperImpl(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
-
     private final ModelMapper modelMapper;
 
     @Override

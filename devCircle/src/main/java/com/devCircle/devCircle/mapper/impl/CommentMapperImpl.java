@@ -3,15 +3,13 @@ package com.devCircle.devCircle.mapper.impl;
 import com.devCircle.devCircle.dto.CommentDTO;
 import com.devCircle.devCircle.entity.Comment;
 import com.devCircle.devCircle.mapper.Mapper;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class CommentMapperImpl implements Mapper<Comment, CommentDTO> {
-    public CommentMapperImpl(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
-
     private final ModelMapper modelMapper;
 
     @Override

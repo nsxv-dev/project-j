@@ -7,37 +7,53 @@
 
   <!-- RIGHT COLUMN: Posts List -->
   <div class="right-column">
-    <h2>All Posts</h2>
+    <h2>Filter</h2>
+    <app-filter [tags]="tags" (filtered)="onFilter($event)"></app-filter>
 
+    <h2>All Posts</h2>
     <!-- Loading -->
-    <div *ngIf="isLoading" class="loading">
+    @if(isLoading){
+    <div class="loading">
       <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
     </div>
+    }
 
     <!-- Error -->
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    @if(errorMessage){
+    <div class="error">{{ errorMessage }}</div>
+
+    }
 
     <!-- Empty -->
-    <div *ngIf="!isLoading && !errorMessage && posts.length === 0" class="empty">
-      No posts found.
-    </div>
+    @if(!isLoading && !errorMessage && posts.length === 0){
+    <div class="empty">No posts found.</div>
+    }
 
     <!-- Posts -->
-    <div *ngIf="!isLoading && !errorMessage && posts.length > 0" class="posts-list">
-      <div class="post-item" *ngFor="let post of posts" [routerLink]="['/posts', post.id]">
+    @if(!isLoading && !errorMessage && posts.length > 0){
+    <div class="posts-list">
+      @for(post of posts; track post.id){
+      <div class="post-item" [routerLink]="['/posts', post.id]">
         <!-- Avatar -->
         <img class="post-avatar" [src]="post.authorAvatarUrl" alt="avatar" />
 
         <!-- Text content -->
         <div class="post-text">
           <div class="post-title">{{ post.title }}</div>
-          <div class="post-content">{{ post.description }}</div>
+          <div class="post-content-wrapper">
+            <div class="post-content">
+              {{ post.description }}
+            </div>
+            <div class="read-more">Click to read more</div>
+          </div>
 
           <div class="post-info">
             <span class="post-status" [ngClass]="post.status.toLowerCase()">{{ post.status }}</span>
             <span class="post-type">{{ post.type }}</span>
             <span class="post-tags">
-              <span class="tag" *ngFor="let tag of post.tags">{{ tag.name }}</span>
+              @for(tag of post.tags; track tag.id){
+              <span class="tag">{{ tag.name }}</span>
+              }
             </span>
           </div>
 
@@ -57,7 +73,9 @@
           </div>
         </div>
       </div>
+      }
     </div>
+    }
 
     <!-- Paginator -->
     <mat-paginator

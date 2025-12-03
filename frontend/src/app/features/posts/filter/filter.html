@@ -1,0 +1,51 @@
+<form
+  [formGroup]="filterForm"
+  class="filter-container"
+  fxLayout="row"
+  fxLayoutGap="16px"
+  fxLayoutAlign="start center"
+>
+  <!-- Keyword Search -->
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Search keyword</mat-label>
+    <input matInput placeholder="Enter keyword" formControlName="keyword" />
+    @if(filterForm.get('keyword')?.value){
+    <button
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="filterForm.get('keyword')?.setValue('')"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+    }
+  </mat-form-field>
+
+  <!-- Tags Multi-select -->
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Tags</mat-label>
+    <mat-select formControlName="tagIds" multiple>
+      @for(tag of tags; track tag.id){
+      <mat-option [value]="tag.id">{{ tag.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Status Dropdown -->
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status">
+      @for(status of statusOptions; track status){
+      <mat-option [value]="status.value">
+        {{ status.label }}
+      </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Apply Filter Button -->
+  <button mat-raised-button color="primary" type="button" (click)="applyFilter()">Filter</button>
+
+  <!-- Clear Filter Button -->
+  <button mat-button type="button" (click)="clearFilter()">Clear</button>
+</form>

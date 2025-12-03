@@ -10,38 +10,53 @@
   } @if (!isLoading && !errorMessage && posts.length === 0) {
   <div class="empty">No posts found.</div>
   } @if (!isLoading && !errorMessage && posts.length > 0) {
-  <mat-list>
-    @for (post of posts; track post.id) {
-    <mat-list-item class="post-item" [routerLink]="['/posts', post.id]">
+  <!-- Posts -->
+  @if(!isLoading && !errorMessage && posts.length > 0){
+  <div class="posts-list">
+    @for(post of posts; track post.id){
+    <div class="post-item" [routerLink]="['/posts', post.id]">
       <!-- Avatar -->
-      <img matListItemAvatar [src]="post.authorAvatarUrl" alt="avatar" />
+      <img class="post-avatar" [src]="post.authorAvatarUrl" alt="avatar" />
 
-      <!-- Post Title -->
-      <div matListItemTitle>{{ post.title }}</div>
+      <!-- Text content -->
+      <div class="post-text">
+        <div class="post-title">{{ post.title }}</div>
+        <div class="post-content-wrapper">
+          <div class="post-content">
+            {{ post.description }}
+          </div>
+          <div class="read-more">Click to read more</div>
+        </div>
 
-      <!-- Post Description -->
-      <div matListItemLine class="post-content">{{ post.description }}</div>
+        <div class="post-info">
+          <span class="post-status" [ngClass]="post.status.toLowerCase()">{{ post.status }}</span>
+          <span class="post-type">{{ post.type }}</span>
+          <span class="post-tags">
+            @for(tag of post.tags; track tag.id){
+            <span class="tag">{{ tag.name }}</span>
+            }
+          </span>
+        </div>
 
-      <!-- Post Meta (Author and Date) -->
-      <div matListItemLine class="post-meta">
-        <span>
-          By
-          <!-- Username Link -->
-          <a
-            (click)="$event.stopPropagation()"
-            [routerLink]="['/user', post.authorId]"
-            class="author-link"
-          >
-            {{ post.authorDisplayName }}</a
-          >
-        </span>
-        •
-        <span>{{ post.createdAt | date : 'mediumDate' }}</span>
+        <div class="post-meta">
+          <span>
+            By
+            <a
+              (click)="$event.stopPropagation()"
+              [routerLink]="['/user', post.authorId]"
+              class="author-link"
+            >
+              {{ post.authorDisplayName }}
+            </a>
+          </span>
+          •
+          <span>{{ post.createdAt | date : 'mediumDate' }}</span>
+        </div>
       </div>
-    </mat-list-item>
-
+    </div>
     }
-  </mat-list>
+  </div>
+  }
   <mat-paginator
     [length]="totalCount"
     [pageSize]="pageSize"

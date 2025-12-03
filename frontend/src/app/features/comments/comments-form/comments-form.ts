@@ -29,7 +29,7 @@ export class CommentsForm {
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   commentForm = new FormGroup({
-    content: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+    content: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
   });
 
   ngOnInit() {

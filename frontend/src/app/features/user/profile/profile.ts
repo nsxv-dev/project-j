@@ -7,6 +7,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../../core/services/auth-service';
 
 @Component({
   selector: 'app-profile',
@@ -17,15 +18,26 @@ import { MatButtonModule } from '@angular/material/button';
 export class Profile implements OnInit {
   userId: string | null = null;
   profile!: UserProfile;
-
-  constructor(private userService: UserService, private route: ActivatedRoute) {}
+  currentUserId: number | null = null;
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    this.currentUserId = this.authService.getCurrentUserId();
+
     this.route.paramMap.subscribe((params) => {
       this.userId = params.get('id');
-      this.userService.getProfile(this.userId).subscribe((p) => {
-        this.profile = p;
+
+      this.userService.getProfile(this.userId).subscribe((profile) => {
+        this.profile = profile;
       });
     });
+  }
+
+  isMyProfile(): boolean {
+    return this.profile?.email === this.authService.getCurrentUserEmail();
   }
 }

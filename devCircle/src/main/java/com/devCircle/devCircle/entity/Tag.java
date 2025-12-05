@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -23,6 +24,5 @@ public class Tag {
 
     @ManyToMany(mappedBy = "tags")
     @JsonIgnore
-    @ToString.Exclude  // <--- prevent recursive toString()
     private List<Post> posts = new ArrayList<>();
 }

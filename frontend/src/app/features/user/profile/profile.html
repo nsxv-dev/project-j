@@ -14,11 +14,13 @@
     </div>
 
     <!-- Edit button on the right -->
+    @if (isMyProfile()) {
     <div class="header-actions">
       <button mat-raised-button color="primary" [routerLink]="['/user/me/edit']">
         Edit Profile
       </button>
     </div>
+    }
   </div>
 
   <mat-divider></mat-divider>

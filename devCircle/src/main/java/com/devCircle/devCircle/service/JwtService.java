@@ -23,7 +23,8 @@ public class JwtService {
     public String generateToken(User user) {
         return Jwts.builder()
                 .setSubject(user.getEmail())
-                //.claim("role", user.getRole())
+                .claim("role", user.getRole())
+                .setId(user.getId().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(Date.from(Instant.now().plus(7, ChronoUnit.DAYS)))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)

@@ -2,17 +2,15 @@ package com.devCircle.devCircle.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -33,7 +31,6 @@ public class Post {
     private String status; // OPEN or CLOSED
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})  // Ignorowanie lazy loading
     @JoinColumn(name = "user_id")
     private User author;
 

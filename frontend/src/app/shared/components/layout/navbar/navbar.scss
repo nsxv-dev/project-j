@@ -12,12 +12,13 @@
     height: 40px;
     width: auto;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 2s ease;
   }
 
   .logo:hover {
-    transform: scale(1.05);
+    transform: scale(1.2) rotate(360deg);
   }
+
 
   .spacer {
     flex: 1 1 auto;
@@ -78,3 +79,19 @@
     }
   }
 }
+
+.name {
+  margin-left: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.name h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+  color: #313ed3;
+  letter-spacing: 2px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+

@@ -1,6 +1,7 @@
 package com.devCircle.devCircle.repository;
 
 import com.devCircle.devCircle.entity.Post;
+import com.devCircle.devCircle.entity.PostStatus;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
@@ -22,9 +23,9 @@ public class PostSpecifications {
         };
     }
 
-    public static Specification<Post> hasStatus(String status) {
+    public static Specification<Post> hasStatus(PostStatus status) {
         return (root, query, cb) -> {
-            if (status == null || status.isBlank()) return null;
+            if (status == null) return null;
             return cb.equal(root.get("status"), status);
         };
     }

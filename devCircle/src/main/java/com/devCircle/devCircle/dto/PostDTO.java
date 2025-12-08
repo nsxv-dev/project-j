@@ -1,5 +1,6 @@
 package com.devCircle.devCircle.dto;
 
+import com.devCircle.devCircle.entity.PostStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -29,7 +30,7 @@ public class PostDTO {
     @NotBlank(message = "Type is required (OFFER or REQUEST)")
     private String type;
 
-    private String status;
+    private PostStatus status;
     private LocalDateTime createdAt;
 
     private Long authorId;

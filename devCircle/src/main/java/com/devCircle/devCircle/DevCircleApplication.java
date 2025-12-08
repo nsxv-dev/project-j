@@ -1,6 +1,7 @@
 package com.devCircle.devCircle;
 
 import com.devCircle.devCircle.entity.Post;
+import com.devCircle.devCircle.entity.PostStatus;
 import com.devCircle.devCircle.entity.User;
 import com.devCircle.devCircle.repository.PostRepository;
 import com.devCircle.devCircle.repository.UserRepository;
@@ -46,7 +47,7 @@ public class DevCircleApplication {
                         .description("Trying to implement JWT in Spring Boot")
                         //.tags(List.of("A", "B", "C"))
                         .type("REQUEST")
-                        .status("OPEN")
+                        .status(PostStatus.OPEN)
                         .createdAt(LocalDateTime.now())
                         .author(user)
                         .build();

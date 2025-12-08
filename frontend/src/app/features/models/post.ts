@@ -1,3 +1,4 @@
+import { PostStatus } from './post-status';
 import { Tag } from './tag';
 
 export interface Post {
@@ -6,7 +7,7 @@ export interface Post {
   description: string;
   tags: Tag[];
   type: string;
-  status: string;
+  status: PostStatus;
   createdAt: string;
   authorId: string;
   authorDisplayName: string;

@@ -28,7 +28,9 @@ public class Post {
 
     @Column(nullable = false)
     private String type;   // OFFER or REQUEST
-    private String status; // OPEN or CLOSED
+    
+    @Enumerated(EnumType.STRING)
+    private PostStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

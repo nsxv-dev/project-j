@@ -49,8 +49,17 @@
       </div>
       }
     </mat-card-actions>
+    <!-- Close Button -->
+    @if (currentUserId == post.authorId && post.status === 'OPEN') {
+    <button mat-raised-button color="warn" class="close-post-btn" (click)="onClosePost()">
+      Close Post
+    </button>
+    }
   </mat-card>
 
-  <app-comments-details [postId]="post.id"></app-comments-details>
+  <app-comments-details
+    [postId]="post.id"
+    [isPostOpen]="post.status === 'OPEN'"
+  ></app-comments-details>
   }
 </div>

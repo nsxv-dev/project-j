@@ -3,6 +3,7 @@ package com.devCircle.devCircle.service;
 import com.devCircle.devCircle.dto.Filter.PostFilterRequest;
 import com.devCircle.devCircle.dto.PostDTO;
 import com.devCircle.devCircle.entity.Post;
+import com.devCircle.devCircle.entity.PostStatus;
 import com.devCircle.devCircle.entity.User;
 import com.devCircle.devCircle.mapper.Mapper;
 import com.devCircle.devCircle.repository.PostRepository;
@@ -49,6 +50,7 @@ public class PostService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         Post post = postMapper.toEntity(dto);
         post.setAuthor(user);
+        post.setStatus(PostStatus.OPEN);
         Post saved = postRepository.save(post);
         return postMapper.toDto(saved);
     }
@@ -70,5 +72,13 @@ public class PostService {
         return page.map(postMapper::toDto);
     }
 
+    public PostDTO closePost(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
 
+        post.setStatus(PostStatus.CLOSED);
+        Post saved = postRepository.save(post);
+
+        return postMapper.toDto(saved);
+    }
 }

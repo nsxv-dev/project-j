@@ -1,6 +1,10 @@
 <div class="comments-container">
   <!-- Comment Form -->
+  @if (isPostOpen) {
   <app-comments-form [postId]="postId" (commentAdded)="loadComments()"></app-comments-form>
+  } @else {
+  <p class="closed-info">This post is closed. You cannot add new comments.</p>
+  }
 
   <!-- Comment List -->
   <h3 class="section-title">Comments</h3>

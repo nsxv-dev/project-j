@@ -68,13 +68,13 @@ export class AuthService {
     return this._token();
   }
 
-  getCurrentUserId(): number | null {
+  getCurrentUserId(): string | null {
     const token = this.getToken();
     if (!token) return null;
 
     try {
       const decoded = jwtDecode<DecodedToken>(token);
-      return Number(decoded.jti); // <-- this is your user ID from the token
+      return decoded.jti; // <-- this is your user ID from the token
     } catch {
       return null;
     }

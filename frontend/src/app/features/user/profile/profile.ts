@@ -18,7 +18,7 @@ import { AuthService } from '../../../core/services/auth-service';
 export class Profile implements OnInit {
   userId: string | null = null;
   profile!: UserProfile;
-  currentUserId: number | null = null;
+  currentUserId: string | null = null;
   constructor(
     private userService: UserService,
     private authService: AuthService,

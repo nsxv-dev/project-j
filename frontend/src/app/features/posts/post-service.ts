@@ -37,4 +37,8 @@ export class PostService {
       filter
     );
   }
+
+  closePost(postId: string) {
+    return this.http.patch<Post>(`${this.apiUrl}/${postId}/close`, {});
+  }
 }

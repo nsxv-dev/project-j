@@ -30,6 +30,7 @@ export class CommentsDetails {
   constructor(private commentService: CommentService, private route: ActivatedRoute) {}
 
   @Input() postId!: number;
+  @Input() isPostOpen: boolean = true;
 
   ngOnInit() {
     this.postId = Number(this.route.snapshot.paramMap.get('id'));

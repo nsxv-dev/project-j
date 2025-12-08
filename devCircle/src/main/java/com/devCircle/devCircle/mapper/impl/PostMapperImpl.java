@@ -24,7 +24,7 @@ public class PostMapperImpl implements Mapper<Post, PostDTO> {
     public Post toEntity(PostDTO dto) {
         Post post = modelMapper.map(dto, Post.class);
         post.setCreatedAt(LocalDateTime.now());
-        post.setStatus("OPEN");
+//        post.setStatus(PostStatus.OPEN);
 
         if (dto.getTags() != null) {
             List<Tag> tagEntities = dto.getTags().stream()

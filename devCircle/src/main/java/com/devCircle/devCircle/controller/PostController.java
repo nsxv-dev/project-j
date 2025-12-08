@@ -73,6 +73,14 @@ public class PostController {
     }
 
     // -------------------------------------------------------------
+    // Close the post
+    // -------------------------------------------------------------
+    @PatchMapping("/{id:\\d+}/close")
+    public PostDTO closePost(@PathVariable Long id) {
+        return postService.closePost(id);
+    }
+
+    // -------------------------------------------------------------
     // Utility: Set default sorting across all list endpoints
     // -------------------------------------------------------------
     private Pageable defaultSorted(Pageable pageable) {

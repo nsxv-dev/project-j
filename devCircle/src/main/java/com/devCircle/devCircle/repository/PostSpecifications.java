@@ -25,7 +25,9 @@ public class PostSpecifications {
 
     public static Specification<Post> hasStatus(PostStatus status) {
         return (root, query, cb) -> {
-            if (status == null) return null;
+            if (status == null) {
+                return cb.conjunction(); // no filtering
+            }
             return cb.equal(root.get("status"), status);
         };
     }

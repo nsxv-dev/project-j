@@ -1,6 +1,6 @@
 package com.devCircle.devCircle.controller;
 
-import com.devCircle.devCircle.dto.SkillDTO;
+import com.devCircle.devCircle.dto.SkillDto;
 import com.devCircle.devCircle.service.SkillService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class SkillController {
     private final SkillService skillService;
 
     @GetMapping
-    public ResponseEntity<List<SkillDTO>> getAllSkills() {
+    public ResponseEntity<List<SkillDto>> getAllSkills() {
         return ResponseEntity.ok(skillService.getAllSkills());
     }
 }

@@ -1,7 +1,7 @@
 package com.devCircle.devCircle.mapper.impl;
 
-import com.devCircle.devCircle.dto.SkillDTO;
-import com.devCircle.devCircle.dto.UserProfileDTO;
+import com.devCircle.devCircle.dto.SkillDto;
+import com.devCircle.devCircle.dto.UserProfileDto;
 import com.devCircle.devCircle.entity.Skill;
 import com.devCircle.devCircle.entity.User;
 import com.devCircle.devCircle.mapper.Mapper;
@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class UserProfileMapperImpl implements Mapper<User, UserProfileDTO> {
+public class UserProfileMapperImpl implements Mapper<User, UserProfileDto> {
     private final ModelMapper modelMapper;
     private final SkillRepository skillRepository;
 
     @Override
-    public User toEntity(UserProfileDTO dto) {
+    public User toEntity(UserProfileDto dto) {
         User user = modelMapper.map(dto, User.class);
 
         if (dto.getSkills() != null) {
@@ -34,12 +34,12 @@ public class UserProfileMapperImpl implements Mapper<User, UserProfileDTO> {
     }
 
     @Override
-    public UserProfileDTO toDto(User user) {
+    public UserProfileDto toDto(User user) {
 
-        UserProfileDTO dto = modelMapper.map(user, UserProfileDTO.class);
+        UserProfileDto dto = modelMapper.map(user, UserProfileDto.class);
         if (user.getSkills() != null) {
-            List<SkillDTO> skillDtos = user.getSkills().stream()
-                    .map(skill -> SkillDTO.builder()
+            List<SkillDto> skillDtos = user.getSkills().stream()
+                    .map(skill -> SkillDto.builder()
                             .id(skill.getId())
                             .name(skill.getName())
                             .build())

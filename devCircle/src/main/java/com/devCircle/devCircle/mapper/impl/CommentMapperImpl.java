@@ -1,6 +1,6 @@
 package com.devCircle.devCircle.mapper.impl;
 
-import com.devCircle.devCircle.dto.CommentDTO;
+import com.devCircle.devCircle.dto.CommentDto;
 import com.devCircle.devCircle.entity.Comment;
 import com.devCircle.devCircle.mapper.Mapper;
 import lombok.RequiredArgsConstructor;
@@ -9,17 +9,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CommentMapperImpl implements Mapper<Comment, CommentDTO> {
+public class CommentMapperImpl implements Mapper<Comment, CommentDto> {
     private final ModelMapper modelMapper;
 
     @Override
-    public Comment toEntity(CommentDTO dto) {
+    public Comment toEntity(CommentDto dto) {
         return modelMapper.map(dto, Comment.class);
     }
 
     @Override
-    public CommentDTO toDto(Comment entity) {
-        CommentDTO dto = modelMapper.map(entity, CommentDTO.class);
+    public CommentDto toDto(Comment entity) {
+        CommentDto dto = modelMapper.map(entity, CommentDto.class);
         dto.setAuthorId(entity.getAuthor().getId());
         dto.setAuthorDisplayName(dto.getAuthorDisplayName());
         dto.setAuthorAvatarUrl(dto.getAuthorAvatarUrl());

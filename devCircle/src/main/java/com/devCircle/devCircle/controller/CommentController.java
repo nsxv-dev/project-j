@@ -1,6 +1,6 @@
 package com.devCircle.devCircle.controller;
 
-import com.devCircle.devCircle.dto.CommentDTO;
+import com.devCircle.devCircle.dto.CommentDto;
 import com.devCircle.devCircle.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +16,12 @@ public class CommentController {
     private CommentService commentService;
 
     @GetMapping
-    public List<CommentDTO> getComments(@PathVariable Long postId) {
+    public List<CommentDto> getComments(@PathVariable Long postId) {
         return commentService.getComments(postId);
     }
 
     @PostMapping
-    public CommentDTO addComment(@PathVariable Long postId, @RequestBody CommentDTO dto) {
+    public CommentDto addComment(@PathVariable Long postId, @RequestBody CommentDto dto) {
         return commentService.addComment(postId, dto);
     }
 }

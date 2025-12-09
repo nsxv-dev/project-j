@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Post } from '../../models/post';
 import { PostService } from '../post-service';
 import { CommonModule } from '@angular/common';
@@ -13,6 +13,7 @@ import { PostsFilter } from '../filter/filter';
 import { PostFilter } from '../../models/post-filter';
 import { Tag } from '../../models/tag';
 import { TagService } from '../tag-service';
+import { PostStatus } from '../../models/post-status';
 
 @Component({
   selector: 'app-posts-list',
@@ -30,7 +31,7 @@ import { TagService } from '../tag-service';
   templateUrl: './posts-list.html',
   styleUrl: './posts-list.scss',
 })
-export class PostsList {
+export class PostsList implements OnInit {
   posts: Post[] = [];
   isLoading: boolean = true;
   errorMessage: string = '';
@@ -38,6 +39,7 @@ export class PostsList {
   pageSize: number = 8;
   currentPage: number = 0;
   tags: Tag[] = [];
+  currentFilter?: PostFilter;
 
   constructor(private postService: PostService, private tagService: TagService) {}
 
@@ -46,17 +48,29 @@ export class PostsList {
     this.loadPosts();
   }
 
-  loadPosts(filter?: PostFilter) {
+  loadPosts(filterChange?: PostFilter) {
     this.isLoading = true;
     this.errorMessage = '';
 
+    // Only reset page if a new filter is applied
+    if (filterChange) {
+      this.currentFilter = filterChange;
+      this.currentPage = 0; // start from first page for new filter
+    }
+
+    // Prepare payload for backend
+    const payload = {
+      keyword: this.currentFilter?.keyword,
+      tagIds: this.currentFilter?.tagIds,
+      status:
+        this.currentFilter?.status === PostStatus.ALL ? undefined : this.currentFilter?.status,
+    };
+
     let request$;
 
-    if (filter && (filter.keyword || (filter.tagIds && filter.tagIds.length) || filter.status)) {
-      // Use filter endpoint
-      request$ = this.postService.filterPosts(filter, this.currentPage, this.pageSize);
+    if (payload.keyword || (payload.tagIds && payload.tagIds.length) || payload.status) {
+      request$ = this.postService.filterPosts(payload, this.currentPage, this.pageSize);
     } else {
-      // Load all posts normally
       request$ = this.postService.getAllPosts(this.currentPage, this.pageSize);
     }
 
@@ -74,23 +88,19 @@ export class PostsList {
   }
 
   onPageChange(event: PageEvent) {
-    this.updatePage(event.pageIndex, event.pageSize);
-  }
-
-  updatePage(pageIndex: number, pageSize: number) {
-    this.currentPage = pageIndex;
-    this.pageSize = pageSize;
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
     this.loadPosts();
   }
 
   onFilter(filter: PostFilter) {
-    this.loadPosts(filter);
+    this.loadPosts(filter); // new filter resets page
   }
 
   loadTags() {
     this.tagService.getAllTags().subscribe({
       next: (tags) => {
-        this.tags = tags; // assign to array bound to filter
+        this.tags = tags;
       },
       error: () => {
         console.error('Failed to load tags');

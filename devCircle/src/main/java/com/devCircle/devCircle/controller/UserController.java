@@ -1,8 +1,8 @@
 package com.devCircle.devCircle.controller;
 
-import com.devCircle.devCircle.dto.UserDTO;
-import com.devCircle.devCircle.dto.UserProfileDTO;
-import com.devCircle.devCircle.dto.UserProfileUpdateDTO;
+import com.devCircle.devCircle.dto.UserDto;
+import com.devCircle.devCircle.dto.UserProfileDto;
+import com.devCircle.devCircle.dto.UserProfileUpdateDto;
 import com.devCircle.devCircle.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,28 +19,28 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
         return ResponseEntity.ok(userService.create(user));
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getAll() {
+    public ResponseEntity<List<UserDto>> getAll() {
         return ResponseEntity.ok(userService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserProfileDTO> getUserProfile(@PathVariable Long id) {
+    public ResponseEntity<UserProfileDto> getUserProfile(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserProfileById(id));
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserProfileDTO> getCurrentUserProfile() {
+    public ResponseEntity<UserProfileDto> getCurrentUserProfile() {
         return ResponseEntity.ok(userService.getCurrentUserProfile());
     }
 
     @PatchMapping("/me")
-    public ResponseEntity<UserProfileDTO> updateCurrentUserProfile(
-            @RequestBody UserProfileUpdateDTO updateDto
+    public ResponseEntity<UserProfileDto> updateCurrentUserProfile(
+            @RequestBody UserProfileUpdateDto updateDto
     ) {
         return ResponseEntity.ok(userService.updateCurrentUserProfile(updateDto));
     }

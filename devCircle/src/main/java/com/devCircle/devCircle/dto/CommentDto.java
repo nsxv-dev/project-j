@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CommentDTO {
+public class CommentDto {
     private Long id;
 
     @NotBlank(message = "Content is required")

@@ -1,6 +1,6 @@
 package com.devCircle.devCircle.service;
 
-import com.devCircle.devCircle.dto.CommentDTO;
+import com.devCircle.devCircle.dto.CommentDto;
 import com.devCircle.devCircle.entity.Comment;
 import com.devCircle.devCircle.entity.Post;
 import com.devCircle.devCircle.entity.User;
@@ -23,9 +23,9 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
-    private final Mapper<Comment, CommentDTO> commentMapper;
+    private final Mapper<Comment, CommentDto> commentMapper;
 
-    public CommentDTO addComment(Long postId, CommentDTO dto) {
+    public CommentDto addComment(Long postId, CommentDto dto) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -41,7 +41,7 @@ public class CommentService {
         return commentMapper.toDto(savedComment);
     }
 
-    public List<CommentDTO> getComments(Long postId) {
+    public List<CommentDto> getComments(Long postId) {
         return commentRepository.findByPostId(postId)
                 .stream()
                 .map(commentMapper::toDto)

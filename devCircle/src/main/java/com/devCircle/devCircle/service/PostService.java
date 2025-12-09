@@ -1,7 +1,7 @@
 package com.devCircle.devCircle.service;
 
 import com.devCircle.devCircle.dto.Filter.PostFilterRequest;
-import com.devCircle.devCircle.dto.PostDTO;
+import com.devCircle.devCircle.dto.PostDto;
 import com.devCircle.devCircle.entity.Post;
 import com.devCircle.devCircle.entity.PostStatus;
 import com.devCircle.devCircle.entity.User;
@@ -20,15 +20,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
-    private final Mapper<Post, PostDTO> postMapper;
+    private final Mapper<Post, PostDto> postMapper;
     private final UserRepository userRepository;
 
-    public Page<PostDTO> getPosts(Pageable pageable) {
+    public Page<PostDto> getPosts(Pageable pageable) {
         return postRepository.findAll(pageable)
                 .map(postMapper::toDto);
     }
 
-    public Page<PostDTO> getPostsByLoggedInUser(Pageable pageable) {
+    public Page<PostDto> getPostsByLoggedInUser(Pageable pageable) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User author = userRepository.findByEmail(email)
@@ -38,13 +38,13 @@ public class PostService {
                 .map(postMapper::toDto);
     }
 
-    public PostDTO getById(Long id) {
+    public PostDto getById(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
         return postMapper.toDto(post);
     }
 
-    public PostDTO createPost(PostDTO dto) {
+    public PostDto createPost(PostDto dto) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -59,7 +59,7 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-    public Page<PostDTO> filterPosts(PostFilterRequest filter, Pageable pageable) {
+    public Page<PostDto> filterPosts(PostFilterRequest filter, Pageable pageable) {
 
         var spec = Specification.allOf(
                 PostSpecifications.hasKeyword(filter.getKeyword()),
@@ -72,7 +72,7 @@ public class PostService {
         return page.map(postMapper::toDto);
     }
 
-    public PostDTO closePost(Long id) {
+    public PostDto closePost(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 

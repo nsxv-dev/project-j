@@ -1,8 +1,8 @@
 package com.devCircle.devCircle.service;
 
-import com.devCircle.devCircle.dto.AuthResponseDTO;
-import com.devCircle.devCircle.dto.LoginRequestDTO;
-import com.devCircle.devCircle.dto.RegisterRequestDTO;
+import com.devCircle.devCircle.dto.AuthResponseDto;
+import com.devCircle.devCircle.dto.LoginRequestDto;
+import com.devCircle.devCircle.dto.RegisterRequestDto;
 import com.devCircle.devCircle.entity.User;
 import com.devCircle.devCircle.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    public AuthResponseDTO registerUser(RegisterRequestDTO request) {
+    public AuthResponseDto registerUser(RegisterRequestDto request) {
         User user = User.builder()
                 .displayName(request.getUsername())
                 .email(request.getEmail())
@@ -31,10 +31,10 @@ public class AuthService {
 
         userRepository.save(user);
         String token = jwtService.generateToken(user);
-        return new AuthResponseDTO(token);
+        return new AuthResponseDto(token);
     }
 
-    public AuthResponseDTO loginUser(LoginRequestDTO request) {
+    public AuthResponseDto loginUser(LoginRequestDto request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -45,6 +45,6 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("User not found."));
         String token = jwtService.generateToken(user);
 
-        return new AuthResponseDTO(token);
+        return new AuthResponseDto(token);
     }
 }

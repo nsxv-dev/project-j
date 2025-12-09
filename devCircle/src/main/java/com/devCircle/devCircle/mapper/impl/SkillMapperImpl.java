@@ -1,14 +1,14 @@
 package com.devCircle.devCircle.mapper.impl;
 
-import com.devCircle.devCircle.dto.SkillDTO;
+import com.devCircle.devCircle.dto.SkillDto;
 import com.devCircle.devCircle.entity.Skill;
 import com.devCircle.devCircle.mapper.Mapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SkillMapperImpl implements Mapper<Skill, SkillDTO> {
+public class SkillMapperImpl implements Mapper<Skill, SkillDto> {
     @Override
-    public Skill toEntity(SkillDTO dto) {
+    public Skill toEntity(SkillDto dto) {
         if (dto == null) return null;
         Skill skill = new Skill();
         skill.setId(dto.getId());
@@ -17,8 +17,8 @@ public class SkillMapperImpl implements Mapper<Skill, SkillDTO> {
     }
 
     @Override
-    public SkillDTO toDto(Skill skill) {
+    public SkillDto toDto(Skill skill) {
         if (skill == null) return null;
-        return new SkillDTO(skill.getId(), skill.getName());
+        return new SkillDto(skill.getId(), skill.getName());
     }
 }

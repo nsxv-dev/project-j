@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PostDTO {
+public class PostDto {
     private Long id;
 
     @NotBlank(message = "Title is required")
@@ -26,7 +26,7 @@ public class PostDTO {
     @Size(max = 1000, message = "Description cannot exceed 1000 characters")
     private String description;
     @NotEmpty(message = "Tags are required")
-    private List<TagDTO> tags;
+    private List<TagDto> tags;
     @NotBlank(message = "Type is required (OFFER or REQUEST)")
     private String type;
 

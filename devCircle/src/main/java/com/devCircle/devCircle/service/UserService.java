@@ -1,8 +1,8 @@
 package com.devCircle.devCircle.service;
 
-import com.devCircle.devCircle.dto.UserDTO;
-import com.devCircle.devCircle.dto.UserProfileDTO;
-import com.devCircle.devCircle.dto.UserProfileUpdateDTO;
+import com.devCircle.devCircle.dto.UserDto;
+import com.devCircle.devCircle.dto.UserProfileDto;
+import com.devCircle.devCircle.dto.UserProfileUpdateDto;
 import com.devCircle.devCircle.entity.Skill;
 import com.devCircle.devCircle.entity.User;
 import com.devCircle.devCircle.mapper.Mapper;
@@ -13,39 +13,40 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final SkillRepository skillRepository;
-    private final Mapper<User, UserDTO> userMapper;
-    private final Mapper<User, UserProfileDTO> userProfileMapper;
-    private final Mapper<User, UserProfileUpdateDTO> userProfileUpdateMapper;
+    private final Mapper<User, UserDto> userMapper;
+    private final Mapper<User, UserProfileDto> userProfileMapper;
+    private final Mapper<User, UserProfileUpdateDto> userProfileUpdateMapper;
 
 
-    public UserDTO create(UserDTO dto) {
+    public UserDto create(UserDto dto) {
         User user = userMapper.toEntity(dto);
         user.setRole("BEGINNER");
 
         return userMapper.toDto(userRepository.save(user));
     }
 
-    public List<UserDTO> getAll() {
+    public List<UserDto> getAll() {
         return userRepository.findAll()
                 .stream()
                 .map(userMapper::toDto)
                 .toList();
     }
 
-    public UserProfileDTO getUserProfileById(Long id) {
+    public UserProfileDto getUserProfileById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         return userProfileMapper.toDto(user);
     }
 
-    public UserProfileDTO getCurrentUserProfile() {
+    public UserProfileDto getCurrentUserProfile() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -53,43 +54,41 @@ public class UserService {
         return userProfileMapper.toDto(user);
     }
 
-    public UserProfileDTO updateCurrentUserProfile(UserProfileUpdateDTO dto) {
+    public UserProfileDto updateCurrentUserProfile(UserProfileUpdateDto dto) {
+        // Get current authenticated user's email
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
+        // Fetch user or throw a specific exception
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User with email '" + email + "' not found"));
 
+        // Map DTO to entity for easier access to new values
         User updateData = userProfileUpdateMapper.toEntity(dto);
 
-        // Partial update: only overwrite editable fields
-        if (dto.getDisplayName() != null)
-            user.setDisplayName(updateData.getDisplayName());
+        // Partial updates: only update non-null fields
+        Optional.ofNullable(updateData.getDisplayName()).ifPresent(user::setDisplayName);
+        Optional.ofNullable(updateData.getRole()).ifPresent(user::setRole);
+        Optional.ofNullable(updateData.getAvatarUrl()).ifPresent(user::setAvatarUrl);
+        Optional.ofNullable(updateData.getGithubUrl()).ifPresent(user::setGithubUrl);
+        Optional.ofNullable(updateData.getLinkedinUrl()).ifPresent(user::setLinkedinUrl);
 
-        if (dto.getRole() != null)
-            user.setRole(updateData.getRole());
-
-        if (dto.getAvatarUrl() != null)
-            user.setAvatarUrl(updateData.getAvatarUrl());
-
-        if (dto.getGithubUrl() != null)
-            user.setGithubUrl(updateData.getGithubUrl());
-
-        if (dto.getLinkedinUrl() != null)
-            user.setLinkedinUrl(updateData.getLinkedinUrl());
-
+        // Update skills if provided
         if (dto.getSkillIds() != null) {
             List<Skill> newSkills = skillRepository.findAllById(dto.getSkillIds());
             user.getSkills().clear();
             user.getSkills().addAll(newSkills);
         }
 
-        userRepository.save(user);
+        // Save updated user
+        User updatedUser = userRepository.save(user);
 
-        return userProfileMapper.toDto(user);
+        // Return updated DTO
+        return userProfileMapper.toDto(updatedUser);
     }
 
+
     //Helpers
-    public UserDTO findByUsername(String username) {
+    public UserDto findByUsername(String username) {
         User user = userRepository.findByDisplayName(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 

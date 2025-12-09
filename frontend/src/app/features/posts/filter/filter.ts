@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { PostStatus } from '../../models/post-status';
 
 @Component({
   selector: 'app-filter',
@@ -30,31 +31,39 @@ export class PostsFilter implements OnInit {
   filterForm: FormGroup;
 
   statusOptions = [
-    { value: '', label: 'All' },
-    { value: 'OPEN', label: 'Open' },
-    { value: 'CLOSED', label: 'Closed' },
+    { value: PostStatus.ALL, label: 'All' },
+    { value: PostStatus.OPEN, label: 'Open' },
+    { value: PostStatus.CLOSED, label: 'Closed' },
   ];
 
   constructor(private fb: FormBuilder) {
-    // Initialize form
     this.filterForm = this.fb.group({
       keyword: [''],
       tagIds: [[]],
-      status: [''],
+      status: [PostStatus.ALL],
     });
   }
 
   ngOnInit(): void {}
 
   applyFilter() {
-    this.filtered.emit({ ...this.filterForm.value });
+    const rawValue = this.filterForm.value;
+
+    const filter: PostFilter = {
+      keyword: rawValue.keyword || undefined,
+      tagIds: rawValue.tagIds?.length ? rawValue.tagIds : undefined,
+      status:
+        rawValue.status === PostStatus.ALL || rawValue.status === '' ? undefined : rawValue.status,
+    };
+
+    this.filtered.emit(filter);
   }
 
   clearFilter() {
     this.filterForm.reset({
       keyword: '',
       tagIds: [],
-      status: '',
+      status: PostStatus.ALL,
     });
     this.applyFilter();
   }

@@ -1,6 +1,6 @@
 package com.devCircle.devCircle.controller;
 
-import com.devCircle.devCircle.dto.TagDTO;
+import com.devCircle.devCircle.dto.TagDto;
 import com.devCircle.devCircle.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class TagController {
     private final TagService tagService;
 
     @GetMapping
-    public ResponseEntity<List<TagDTO>> getAllTags() {
+    public ResponseEntity<List<TagDto>> getAllTags() {
         return ResponseEntity.ok(tagService.getAllTags());
     }
 }

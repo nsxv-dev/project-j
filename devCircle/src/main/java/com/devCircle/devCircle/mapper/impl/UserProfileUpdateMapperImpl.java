@@ -1,6 +1,6 @@
 package com.devCircle.devCircle.mapper.impl;
 
-import com.devCircle.devCircle.dto.UserProfileUpdateDTO;
+import com.devCircle.devCircle.dto.UserProfileUpdateDto;
 import com.devCircle.devCircle.entity.Skill;
 import com.devCircle.devCircle.entity.User;
 import com.devCircle.devCircle.mapper.Mapper;
@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class UserProfileUpdateMapperImpl implements Mapper<User, UserProfileUpdateDTO> {
+public class UserProfileUpdateMapperImpl implements Mapper<User, UserProfileUpdateDto> {
     private final ModelMapper modelMapper;
     private final SkillRepository skillRepository;
 
     @Override
-    public User toEntity(UserProfileUpdateDTO dto) {
+    public User toEntity(UserProfileUpdateDto dto) {
         User user = new User();
 
         user.setDisplayName(dto.getDisplayName());
@@ -42,8 +42,8 @@ public class UserProfileUpdateMapperImpl implements Mapper<User, UserProfileUpda
 
 
     @Override
-    public UserProfileUpdateDTO toDto(User user) {
-        UserProfileUpdateDTO dto = modelMapper.map(user, UserProfileUpdateDTO.class);
+    public UserProfileUpdateDto toDto(User user) {
+        UserProfileUpdateDto dto = modelMapper.map(user, UserProfileUpdateDto.class);
 
         if (user.getSkills() != null) {
             dto.setSkillIds(

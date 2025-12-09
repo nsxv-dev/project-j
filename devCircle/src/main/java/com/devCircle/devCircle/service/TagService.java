@@ -1,6 +1,6 @@
 package com.devCircle.devCircle.service;
 
-import com.devCircle.devCircle.dto.TagDTO;
+import com.devCircle.devCircle.dto.TagDto;
 import com.devCircle.devCircle.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 public class TagService {
     private final TagRepository tagRepository;
 
-    public List<TagDTO> getAllTags() {
+    public List<TagDto> getAllTags() {
         return tagRepository.findAll().stream()
-                .map(tag -> TagDTO.builder()
+                .map(tag -> TagDto.builder()
                         .id(tag.getId())
                         .name(tag.getName())
                         .build())

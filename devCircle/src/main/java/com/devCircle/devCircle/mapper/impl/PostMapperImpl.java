@@ -1,7 +1,7 @@
 package com.devCircle.devCircle.mapper.impl;
 
-import com.devCircle.devCircle.dto.PostDTO;
-import com.devCircle.devCircle.dto.TagDTO;
+import com.devCircle.devCircle.dto.PostDto;
+import com.devCircle.devCircle.dto.TagDto;
 import com.devCircle.devCircle.entity.Post;
 import com.devCircle.devCircle.entity.Tag;
 import com.devCircle.devCircle.mapper.Mapper;
@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class PostMapperImpl implements Mapper<Post, PostDTO> {
+public class PostMapperImpl implements Mapper<Post, PostDto> {
     private final ModelMapper modelMapper;
     private final TagRepository tagRepository;
 
     @Override
-    public Post toEntity(PostDTO dto) {
+    public Post toEntity(PostDto dto) {
         Post post = modelMapper.map(dto, Post.class);
         post.setCreatedAt(LocalDateTime.now());
 //        post.setStatus(PostStatus.OPEN);
@@ -39,12 +39,12 @@ public class PostMapperImpl implements Mapper<Post, PostDTO> {
 
 
     @Override
-    public PostDTO toDto(Post entity) {
-        PostDTO dto = modelMapper.map(entity, PostDTO.class);
+    public PostDto toDto(Post entity) {
+        PostDto dto = modelMapper.map(entity, PostDto.class);
 
         if (entity.getTags() != null) {
-            List<TagDTO> tagDtos = entity.getTags().stream()
-                    .map(tag -> TagDTO.builder()
+            List<TagDto> tagDtos = entity.getTags().stream()
+                    .map(tag -> TagDto.builder()
                             .id(tag.getId())
                             .name(tag.getName())
                             .build())

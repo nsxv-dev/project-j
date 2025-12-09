@@ -11,12 +11,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserProfileDTO {
+public class UserProfileDto {
     private String displayName;
     private String avatarUrl;
     private String email;
     private String role;
     private String githubUrl;
     private String linkedinUrl;
-    private List<SkillDTO> skills;
+    private List<SkillDto> skills;
 }

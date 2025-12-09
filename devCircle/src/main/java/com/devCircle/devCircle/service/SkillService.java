@@ -1,6 +1,6 @@
 package com.devCircle.devCircle.service;
 
-import com.devCircle.devCircle.dto.SkillDTO;
+import com.devCircle.devCircle.dto.SkillDto;
 import com.devCircle.devCircle.entity.Skill;
 import com.devCircle.devCircle.mapper.Mapper;
 import com.devCircle.devCircle.repository.SkillRepository;
@@ -14,9 +14,9 @@ import java.util.List;
 public class SkillService {
 
     private final SkillRepository skillRepository;
-    private final Mapper<Skill, SkillDTO> skillMapper;
+    private final Mapper<Skill, SkillDto> skillMapper;
 
-    public List<SkillDTO> getAllSkills() {
+    public List<SkillDto> getAllSkills() {
         return skillRepository.findAll()
                 .stream()
                 .map(skillMapper::toDto)

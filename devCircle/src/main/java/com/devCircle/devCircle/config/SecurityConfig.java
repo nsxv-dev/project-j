@@ -37,8 +37,10 @@ public class SecurityConfig {
                 }))
                 .authorizeHttpRequests(req -> req
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/ws/**").permitAll()// <--- allow websocket
                         .anyRequest().authenticated()
                 )
+                .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

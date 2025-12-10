@@ -8,6 +8,7 @@ import com.devCircle.devCircle.mapper.Mapper;
 import com.devCircle.devCircle.repository.CommentRepository;
 import com.devCircle.devCircle.repository.PostRepository;
 import com.devCircle.devCircle.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,9 @@ public class CommentService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final Mapper<Comment, CommentDto> commentMapper;
+    private final NotificationService notificationService;
 
+    @Transactional
     public CommentDto addComment(Long postId, CommentDto dto) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email)
@@ -35,11 +38,27 @@ public class CommentService {
 
         Comment comment = commentMapper.toEntity(dto);
         comment.setPost(post);
-        comment.setCreatedAt(LocalDateTime.now());
         comment.setAuthor(user);
+        comment.setCreatedAt(LocalDateTime.now());
         Comment savedComment = commentRepository.save(comment);
+
+        // Send notifications asynchronously to avoid transaction rollback issues
+        try {
+            notificationService.notifyFollowersOnNewComment(postId, comment);
+            System.out.println(">>> Sending comment notification to " + post.getAuthor().getEmail());
+            notificationService.sendCommentNotification(
+                    post.getAuthor(),
+                    "New comment on your post: " + post.getTitle()
+                            + comment.getContent()
+            );
+        } catch (Exception e) {
+            // log but don’t fail the comment save
+            System.err.println("Failed to send notification: " + e.getMessage());
+        }
+
         return commentMapper.toDto(savedComment);
     }
+
 
     public List<CommentDto> getComments(Long postId) {
         return commentRepository.findByPostId(postId)
